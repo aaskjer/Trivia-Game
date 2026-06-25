@@ -1,8 +1,16 @@
-<p align="center"><img src="" alt="TG banner" width="400" height="400"></p>
+<p align="center"><img src="https://github.com/aaskjer/Trivia-Game/blob/main/Assets/TG/Trivia-Game.png?raw=true" alt="TG banner" width="400" height="400"></p>
+Trivia Game is a Streamer.bot chat game for livestream platforms that runs interactive trivia rounds directly in chat, with support for Twitch, YouTube, Trovo, and Kick.
+It fetches questions from Open Trivia Database.
 
-ready to put your knowledge to the test? trivia quiz game built for streamer.bot, supporting twitch, kick, trovo and youtube.
 
-tbc
+# Overview
+
+- Manages active rounds per platform, supports normal and blitz modes, and tracks wins, points, and blitz stats through Streamer.bot user variables.
+- Configurable rounds with difficulty, question type, category, answer timers, and countdown reminders.
+- Flexible answer matching with numeric, exact, normalized, and fuzzy matching using Levenshtein distance.
+- Points system with difficulty multipliers, blitz multipliers, subscriber/VIP boosts, and optional addicted-user penalties.
+- Built-in leaderboard, personal stats, target-user stats, and optional monthly resets per platform.
+- WPF settings UI for configuration, scoreboard settings, action-log viewing, channel points setup, and message customization.
 
 ---
 
@@ -19,7 +27,7 @@ When `Use Channel Points To Start` is enabled, the start command is effectively 
 
 ---
 
-## Get Started
+# Get Started
 
 [Setup Guide](https://github.com/aaskjer/Trivia-Game/blob/main/Setup-Guide.md)
 
@@ -31,7 +39,7 @@ When `Use Channel Points To Start` is enabled, the start command is effectively 
 
 ---
 
-## Credits & Links
+# Credits & Links
 
 
 [aaskjer on Twitch](https://twitch.tv/aaskjer)
