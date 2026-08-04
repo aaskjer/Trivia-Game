@@ -268,7 +268,7 @@ Partially — You still have to trigger the `Test` trigger but if you press `Yes
 
 ---
 
-# Is Blackjack Game an AI Slop?
+# Is Trivia Game an AI Slop?
 Partially it is. This script has been developed with input from the streamer.bot community and is support by AI.
 But i spend a lot of time putting heart and soul in it and my goal was to create a robust and valid moderation tool for everyone and easy to use.
 I understand that people, especially IT savvy people, will dislike the project because of the use of AI and i absolutely understand and support their point of view.
