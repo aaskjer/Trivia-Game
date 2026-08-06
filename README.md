@@ -25,6 +25,8 @@ When `Use Channel Points To Start` is enabled, the start command is effectively 
 | **Fixed** | Every redemption bets a fixed configured amount |
 | **Free** | All redemptions play for free regardless of cost |
 
+The Script automatically knows which you'd picked, so no extra settings here
+
 ---
 
 # Get Started
