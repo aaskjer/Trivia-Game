@@ -1,5 +1,5 @@
 <p align="center"><img src="https://github.com/aaskjer/Trivia-Game/blob/main/Assets/TG/Trivia-Game.png?raw=true" alt="TG banner" width="400" height="400"></p>
-Trivia Game is a Streamer.bot chat game for livestream platforms that runs interactive trivia rounds directly in chat, with support for Twitch, YouTube, Trovo, and Kick.
+Trivia Game is a Streamer.bot chat game for livestream platforms that runs interactive trivia rounds directly in chat, with support for Twitch, YouTube, and Kick.
 It fetches questions from Open Trivia Database.
 
 
