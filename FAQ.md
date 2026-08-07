@@ -246,7 +246,7 @@ Yes. Use `!triviagamestats @Username` to look up another user's wins, points, bl
 
 **Q: Which platforms are supported?**
 
-Twitch, YouTube, Kick, and Trovo. Enable the ones you stream on in Settings GUI → **General → Select Platform(s)**. The game determines the active platform automatically from the incoming event.
+Twitch, YouTube, and Kick. Enable the ones you stream on in Settings GUI → **General → Select Platform(s)**. The game determines the active platform automatically from the incoming event.
 
 ***
 
