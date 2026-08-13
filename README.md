@@ -1,7 +1,16 @@
 <p align="center"><img src="https://github.com/aaskjer/Trivia-Game/blob/main/Assets/TG/Trivia-Game.png?raw=true" alt="TG banner" width="400" height="400"></p>
+
 Trivia Game is a Streamer.bot chat game for livestream platforms that runs interactive trivia rounds directly in chat, with support for Twitch, YouTube, and Kick.
 It fetches questions from Open Trivia Database.
 
+
+![Static Badge](https://img.shields.io/badge/https%3A%2F%2Fimg.shields.io%2Fbadge%2Fany_text-Twitch-grey?label=supported%20platform&color=%236441a5)
+![Static Badge](https://img.shields.io/badge/https%3A%2F%2Fimg.shields.io%2Fbadge%2Fany_text-streamer.bot-white?label=tool&color=%230b73ff)
+![GitHub License](https://img.shields.io/github/license/aaskjer/Trivia-Game)
+![GitHub Release](https://img.shields.io/github/v/release/aaskjer/Trivia-Game)
+![GitHub Downloads (all assets, all releases)](https://img.shields.io/github/downloads/aaskjer/Trivia-Game/total)
+
+---
 
 # Overview
 
