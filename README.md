@@ -106,27 +106,9 @@ The `Trivia Game` action needs a **Twitch → Channel Point Reward Redemption** 
 this to reach the script. The current import ships with it; an install that updated only the code
 may not have it.
 
----
 
-## The settings window
 
-Seven pages on an icon rail, `Ctrl+1` to `Ctrl+7` to switch, `Ctrl+S` to save.
-
-<p align="center">
-  <img src="Assets/setup-guide/game.png" alt="The Game page" width="620">
-</p>
-
-| Page | Holds |
-|---|---|
-| **Game** | Round rules, the difficulty dial, blitz, auto start, points and payouts |
-| **Questions** | Where questions come from, your own list, and what arrives from chat |
-| **Access** | Who may start a round, channel points, cooldowns, blocked and addicted viewers |
-| **Messages** | All 63 chat lines, with a preview |
-| **Log** | What the game did, filterable |
-| **How to play** | The rules and commands, with your current settings read back |
-| **About** | Version, prerequisites, links, and a warning for settings that contradict each other |
-
-More shots and the walk-through are in the [Setup Guide](Setup-Guide.md).
+More information and the walk-through are in the [Setup Guide](Setup-Guide.md).
 
 ---
 
