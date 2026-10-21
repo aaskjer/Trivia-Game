@@ -6,12 +6,14 @@
 
 **Q: Where are the config files stored?**
 
-All config files live under your Streamer.bot base directory:
+Everything sits under your Streamer.bot base directory:
 ```
-Chat Games/Trivia Game/configs.json        ← game settings
-Chat Games/Trivia Game/messages.json       ← all chat messages
-Chat Games/Logs/Trivia-log.txt             ← action log
+Chat Games/Trivia Game/configs.json             ← settings and all chat messages
+Chat Games/Trivia Game/Trivia-Questions.json    ← the questions you write yourself
+Chat Games/Logs/Trivia-log-YYYY-MM-DD.txt       ← action log, a fresh file per day
 ```
+Settings and messages share `configs.json`. An older `messages.json` is still read if it exists and is folded into `configs.json` the next time you save. Log files are kept indefinitely — nothing is deleted automatically.
+
 You should never need to edit these by hand — use the built-in Settings GUI instead.
 
 ***
@@ -19,19 +21,20 @@ You should never need to edit these by hand — use the built-in Settings GUI in
 **Q: The Settings GUI won't open / crashes immediately. What do I do?**
 
 - Check the Streamer.bot log for error details and please report it on the [issues page](https://github.com/aaskjer/Trivia-Game/issues).
-- If `configs.json` or `messages.json` is malformed, the GUI will fail to open. Delete the corrupt file and restart — it will be recreated with defaults.
+- A malformed `configs.json` stops the GUI opening at all. Delete the corrupt file and restart — it comes back with defaults.
+- If `Trivia-Questions.json` cannot be read, the GUI opens with an empty question list and says so. Fix or move that file before saving, or saving overwrites it.
 
 ***
 
 **Q: How do I reset all settings to defaults?**
 
-Open the Settings GUI and click **Reset to Defaults** (red button, bottom-left). This rewrites both `configs.json` and `messages.json` with factory values and reopens the GUI.
+Open the Settings GUI and click the ↺ button at the bottom left. That rewrites `configs.json` with factory values and reopens the window; the questions you wrote yourself are left alone. For a single page instead, use the ↻ button beside it — that one writes nothing until you save.
 
 ***
 
 **Q: I saved settings but nothing changed in-game. Why?**
 
-Clicking **Save** writes the JSON files to disk. The game script reads config fresh on every `Execute()` call, so the next game command will pick up your changes immediately. No Streamer.bot restart needed.
+**Save** writes the JSON files to disk, and the game script re-reads them whenever they change. Your next game command already runs on the new values. No Streamer.bot restart needed.
 
 ***
 
@@ -39,34 +42,42 @@ Clicking **Save** writes the JSON files to disk. The game script reads config fr
 
 **Q: Only moderators can start the game — how do I allow everyone?**
 
-In the Settings GUI → **Game** tab, uncheck **Require Mod To Start**. Broadcasters can always start regardless of this setting.
+On the **Access** page, under *Who may run a round*, switch off **Only moderators may start**. Broadcasters can always start, whatever this is set to.
 
 ***
 
 **Q: How do I start with Channel Points instead of a chat command?**
 
-1. Enable **Allow Channel Points To Start** in the Settings GUI → **Other Modules → Twitch Channel Points**.
-2. Paste your **Reward ID** into the field.
-3. Set your preferred **Bet Mode** (`fixed`, `cost`, `input`, or `free`).
+1. On the **Access** page, under *Channel points*, tick **Only Channel Points**.
+2. Paste your **Reward ID (Single Round)** into the field.
 
-Note: Channel Points only controls *starting* — players can still answer normally using the configured answer command regardless.
+The current import already carries the **Twitch → Channel Point Reward Redemption** trigger on the `Trivia Game` action. On an older install that updated only the code, check **Actions → Trivia Game → Triggers** and add it — without that trigger a redemption never reaches the script at all.
+
+Channel Points only control *starting*. Everyone in chat still answers as usual.
 
 ***
 
-**Q: What does each Channel Points Bet Mode do?**
+**Q: Are channel points wagered or paid out?**
 
-| Mode | Behaviour |
-|------|-----------|
-| `fixed` | Every redemption bets the exact **Fixed Bet Amount** set in the GUI |
-| `cost` | Bet equals the reward's **channel point cost** |
-| `input` | User types their bet into the reward text field (`rawInput`) |
-| `free` | Bet is forced to 0 — free play, no points wagered |
+No. They decide *whether* a round may start, and nothing else — nothing is staked, deducted or paid out in channel points, and the reward's cost is purely a matter for Twitch. Winners are paid in your own currency, exactly as they are for a round started from chat.
+
+***
+
+**Q: Can one redemption play several rounds?**
+
+Yes. Put a second, separate reward under **Reward ID (Multi Round)** and a ceiling under **Max Rounds Per Redeem**. Switch on *Require Viewer to Enter Text* on that Twitch reward and viewers type the number themselves, clamped to your ceiling. Leave it off and every redemption simply plays the ceiling.
+
+***
+
+**Q: What happens to the points when a redemption cannot start a round?**
+
+With **Refund Failed Redemptions** on, the redemption is cancelled and the viewer gets their channel points back — whether a round was already running, the command was on cooldown, or no question could be fetched. This needs the reward to keep its redemptions in the request queue, so leave *Skip Reward Requests Queue* switched **off** on Twitch. Redemptions that do start a round are marked fulfilled automatically, so the queue does not pile up.
 
 ***
 
 **Q: A round is stuck as active after Streamer.bot restarted. How do I clear it?**
 
-Use the mod command `!ForceEndTrivia` (bound to the Stop action). The game state lives in memory, so a Streamer.bot restart already clears it — just start a new round normally.
+Use the mod command `!ForceEndTrivia`. Game state lives in memory, so a restart has already cleared it — just start a new round normally. A round that outlives its own countdown is caught and resolved on the next chat message, too.
 
 ***
 
@@ -76,28 +87,30 @@ Use the mod command `!ForceEndTrivia` (bound to the Stop action). The game state
 
 | Command | Who | What it does |
 |---------|-----|--------------|
-| `!StartTrivia` | Mod / Broadcaster / Everyone | Start a new round |
-| `!ForceEndTrivia` | Mod / Broadcaster | Stop the current round |
+| `!Trivia` | Mod / Broadcaster / Everyone | Start a new round |
+| `!Trivia <n>` | Mod / Broadcaster / Everyone | Play `n` rounds back to back, e.g. `!Trivia 3` |
+| `!Trivia <category>` | Mod / Broadcaster / Everyone | Start a round on a named category, e.g. `!Trivia history` |
 | `!SkipTrivia` | Mod / Broadcaster / Everyone | Skip the current question |
-| `!TriviaPersonalStats` | Everyone | View personal or target user stats |
-| `!TriviaScoreboardSearch` | Everyone | View target user stats |
-| `!TriviaScoreboard` | Everyone | Show the top-N leaderboard |
-| `!TriviaAddict add <user>` | Mod / Broadcaster | Add a user to the addicted list |
-| `!TriviaAddict remove <user>` | Mod / Broadcaster | Remove a user from the addicted list |
+| `!ForceEndTrivia` / `!FCTrivia` | Mod / Broadcaster | End the round early — answers already given still score |
+| `!TStats` | Everyone | Your own stats |
+| `!TriviaScoreboardSearch` / `!TSS` | Everyone | Somebody else's stats |
+| `!TriviaScoreboard` / `!TTB` | Everyone | Show the top-N leaderboard |
+| `!TA` / `!TriviaAddict` `add\|remove <user>` | Mod / Broadcaster | Manage the addicted list |
+| `!Suggest q \| correct \| wrong \| wrong` | Reward, group or mod — see *Viewer suggestions* | Add a question of the viewer's own |
 
-Command names depend on what you configured in Streamer.bot — the above are the defaults.
+Command names depend on what you configured in Streamer.bot — the above are the defaults from the import string.
 
 ***
 
 **Q: How do players submit answers?**
 
-Players type their answer directly into chat. The game checks every chat message during an active round against the correct answer using the enabled matching modes. No command prefix is needed for answers.
+They type the answer straight into chat. During a round the game checks every message against the correct answer using whichever matching modes you enabled. Answers need no command prefix.
 
 ***
 
 **Q: Can the same answer be submitted twice by the same user?**
 
-No. If a user submits a second answer, the game sends the `AlreadyAnswered` message and ignores it — no penalty is applied.
+No. A second answer gets the `AlreadyAnswered` message and is ignored — no penalty.
 
 ***
 
@@ -108,7 +121,7 @@ No. If a user submits a second answer, the game sends the `AlreadyAnswered` mess
 | Normal | All correct answers are collected until time runs out; all winners are announced together |
 | Blitz | First correct answer wins immediately and the round ends |
 
-Blitz rounds are triggered randomly based on the **Blitz Chance** percentage configured in the Settings GUI.
+Which one you get is down to chance: the **Blitz Chance** percentage in the Settings GUI decides how often a round turns into a blitz.
 
 ***
 
@@ -116,12 +129,12 @@ Blitz rounds are triggered randomly based on the **Blitz Chance** percentage con
 
 **Q: What points system does the game use?**
 
-The game auto-detects your currency in this priority order:
+The game detects your currency itself, in this order:
 1. **StreamUP Currency Core** — reads the `currency_ProductSettings` global.
 2. **tawmae Loyalty Points** — reads the `tawmae_Settings_LOYALTY POINTS` global.
-3. **Config fallback** — uses `PointsVar` / `PointsName` from `configs.json`.
+3. **Config fallback** — uses `VarName` / `PointsName` from `configs.json`.
 
-If you use a custom currency with a different variable name, set **Points Var** and **Points Name** in the Settings GUI → **Game** tab.
+Running a custom currency under a different variable name? Set **Points variable** and **Shown in chat as** on the **Game** page, under *Points*.
 
 ***
 
@@ -131,7 +144,7 @@ If you use a custom currency with a different variable name, set **Points Var** 
 awarded = BaseWinPoints × DifficultyMultiplier × BlitzMultiplier × RoleMultiplier
 ```
 
-`RoleMultiplier` starts at 1.0 and is adjusted by subscriber boost, VIP boost, and the addicted penalty. Blitz multiplier only applies during Blitz rounds.
+`RoleMultiplier` starts at 1.0 and is adjusted by subscriber boost, VIP boost, and the addicted penalty. The blitz multiplier only applies during Blitz rounds.
 
 ***
 
@@ -145,7 +158,7 @@ awarded = BaseWinPoints × DifficultyMultiplier × BlitzMultiplier × RoleMultip
 | Very Hard | 3.0× |
 | Blitz bonus | 2.0× (stacks on top) |
 
-All multipliers are configurable in the Settings GUI → **Game** tab.
+All of them are configurable on the **Game** page, under *Payouts*. opentdb only reports easy, medium and hard — *Very Hard* applies to questions you write yourself.
 
 ***
 
@@ -153,17 +166,17 @@ All multipliers are configurable in the Settings GUI → **Game** tab.
 
 **Q: How do Subscriber / VIP boosts work?**
 
-Enable the boost in **Settings GUI → Game → Role Boosts** and set the percentage. The multiplier stacks additively:
+Switch the boost on under **Game → Payouts** and set the percentage. Twitch only. The two stack additively:
 ```
 multiplier = 1.0 + (SubBoost%) + (VipBoost%)
 ```
-Example: 10% sub boost + 20% VIP boost on a 1,000-pt win → `1,000 × 1.30 = 1,300 pts`.
+So a 10% sub boost plus a 20% VIP boost on a 1,000-pt win pays `1,000 × 1.30 = 1,300 pts`.
 
 ***
 
 **Q: What is the "Addicted" system?**
 
-Users on the addicted list receive a **50% point penalty** — they always earn half of what they would normally win. Manage the list with `!addicted add/remove <user>` (mods only) or edit **Addicted Users** directly in the Settings GUI.
+Viewers on the addicted list take a **50% point penalty** — they always earn half of what they would otherwise win. Manage the list with `!TA add|remove <user>` (mods only), or edit **Addicted viewers** on the **Access** page. Both write the same list, and a change made from chat while the window is open survives saving.
 
 ***
 
@@ -171,25 +184,27 @@ Users on the addicted list receive a **50% point penalty** — they always earn 
 
 **Q: Where do the trivia questions come from?**
 
-Questions are fetched from the [Open Trivia Database](https://opentdb.com) API. The game supports filtering by **category**, **difficulty**, and **question type** (multiple choice, true/false, or both).
+From the [Open Trivia Database](https://opentdb.com) API, from a list you write yourself on the **Questions** page, or from both — the **Question source** selector on that page decides. Either source can be filtered by **category**, **difficulty** and **question type** (multiple choice, true/false, or both), and the two sets of filters are kept apart so narrowing one cannot silently empty the other.
+
+Viewers can contribute questions themselves with `!Suggest` once you allow it on the **Questions** page, under *Viewer suggestions*.
 
 ***
 
 **Q: Can I change the default category or difficulty?**
 
-Yes. In the Settings GUI → **Game** tab you can set the **Default Difficulty**, **Default Question Type**, and **Default Category** used for every round.
+Yes. The **Game** page, under *Rounds*, sets the **Difficulty**, **Question type** and **Category ID** used for every round. Turn on **Let chat pick the category** and viewers may name one themselves — `!Trivia history`.
 
 ***
 
 **Q: What happens if the API returns no results for my settings?**
 
-If the API returns a code 1 (no results), the game logs a warning and the round fails to start. Try broadening the category or difficulty range. The game also caches questions in advance to reduce API failures.
+Code 1 usually means the batch was simply bigger than the pool your category, difficulty and type leave behind — some opentdb categories hold only a handful of hard questions. The game notices and asks again for a single question, so the round still runs. Only a combination with no questions at all fails, and **Fall Back To The Other Source** can then hand that round to your own list instead. Questions are cached in advance as well, which keeps the API calls down.
 
 ***
 
 **Q: How does question caching work?**
 
-On each round start, the game attempts to serve a question from the local cache first. If the cache is empty (cache miss), it fetches a batch of questions from the API, serves one, and stores the rest. The batch size is controlled by **Question Cache Size** in the Settings GUI.
+Each round start tries the local cache first. On a miss the game fetches a batch from the API, serves one question and keeps the rest. **Fetch ahead** on the **Questions** page sets how big that batch is.
 
 ***
 
@@ -197,22 +212,22 @@ On each round start, the game attempts to serve a question from the local cache 
 
 **Q: What is the difference between Global Cooldown and User Cooldown?**
 
-- **Global Cooldown** — applies to *all* users simultaneously after a round starts.
-- **User Cooldown** — applies only to the individual user who triggered the start command.
+- **Global Cooldown** — applies to *all* users at once after a round starts.
+- **User Cooldown** — applies only to the user who triggered the start command.
 
-Both are set in the Settings GUI → **General** tab and are applied to the Streamer.bot command directly.
+Both live on the **Access** page under *Cooldown in seconds* and are applied to the Streamer.bot command directly. They gate the command that *starts* a run — the rounds of a back-to-back series run straight through them.
 
 ***
 
 **Q: How do I block specific users or groups from playing?**
 
-In the Settings GUI → **General** tab, add usernames to **Blocked Users** and group names to **Blocked Groups** (comma-separated). Blocked users and groups are silently ignored when they send answers.
+On the **Access** page, add names under *Blocked viewers* and Streamer.bot groups under *Blocked groups*. Both are ignored silently when they send answers.
 
 ***
 
 **Q: Can I skip or force-end a round?**
 
-Yes. The `!triviaskip` command skips the current question (and optionally auto-starts the next one if **Auto Next Round After Skip** is enabled). The `!ForceEndTrivia` command immediately ends the running game without awarding points. Both commands require moderator or broadcaster permissions by default.
+Yes. `!SkipTrivia` throws the current question away without scoring it or revealing the answer, and optionally starts the next one if **Auto Next Round After Skip** is enabled. `!ForceEndTrivia` ends the round early but still scores it: answers already submitted count and the correct answer is revealed. Force end also stops a back-to-back series, including while it sits between two questions. Both need moderator or broadcaster permissions by default.
 
 ***
 
@@ -220,25 +235,25 @@ Yes. The `!triviaskip` command skips the current question (and optionally auto-s
 
 **Q: How is the leaderboard built?**
 
-The leaderboard reads all user stats stored in Streamer.bot's user variable system and ranks them by total wins, then total points. It shows the top-N users configured in **Scoreboard Top N**.
+It reads every user stat held in Streamer.bot's user variable system and ranks by total wins, then total points. **Scoreboard Top N** decides how many places it shows.
 
 ***
 
 **Q: How do I exclude the broadcaster or bot from the scoreboard?**
 
-In Settings GUI → **Other Modules → Scoreboard**: uncheck **Include Broadcaster** and/or **Include Bot**. You can also add usernames to **Blocked From Board** (comma-separated) to exclude specific accounts such as other bots.
+Under **Game → Scoreboard**, switch off **Include the broadcaster** and **Include the bot**. For specific accounts such as other bots, add them under **Blocked from the board** — that list applies whatever those two checkboxes say.
 
 ***
 
 **Q: How does the monthly auto-reset work?**
 
-Enable **Reset All (Monthly)** or the per-platform toggles in the Scoreboard settings. On the first scoreboard command of each month (or on/after the configured **Reset Day**), all user stats for that platform are zeroed. A chat announcement is sent and the reset date is saved to a persisted global so it only runs once per month.
+Enable **Reset All (Monthly)** or the per-platform toggles in the Scoreboard settings. Switching one on only arms it: the first wipe lands at the next month boundary, never in the middle of the month you enabled it in. After that, the first leaderboard or stats command on or after the configured **Reset Day** zeroes every user stat for that platform, sends a chat announcement, and records the month in a persisted global so it runs only once. A **Reset Day** the month does not have — 31 in February, say — falls on that month's last day instead.
 
 ***
 
 **Q: Can I view stats for another user?**
 
-Yes. Use `!triviagamestats @Username` to look up another user's wins, points, blitz wins, and blitz points.
+Yes. `!TSS @Username` looks up anyone's wins, points, blitz wins and blitz points.
 
 ***
 
@@ -246,13 +261,15 @@ Yes. Use `!triviagamestats @Username` to look up another user's wins, points, bl
 
 **Q: Which platforms are supported?**
 
-Twitch, YouTube, and Kick. Enable the ones you stream on in Settings GUI → **General → Select Platform(s)**. The game determines the active platform automatically from the incoming event.
+Twitch, YouTube and Kick — all three, always. The game works out which one an event came from and answers in that chat, so there is nothing to switch on. To keep it off a platform, restrict the Streamer.bot commands themselves, or take that platform's chat-message trigger off the action.
+
+Channel point rewards are the one Twitch-only part, because no other platform has them.
 
 ***
 
 **Q: Can the game run on multiple platforms at the same time?**
 
-Yes. Each platform has its own independent session in memory, so a Twitch round and a YouTube round can be active simultaneously without interfering with each other. Points, stats, and leaderboards are stored and reset per platform independently.
+Yes. Each platform holds its own session in memory, so a Twitch round and a YouTube round can run at once without touching each other. Points, stats and leaderboards are stored and reset per platform independently.
 
 ***
 
@@ -260,19 +277,22 @@ Yes. Each platform has its own independent session in memory, so a Twitch round 
 
 **Q: How do I know when a new version is available?**
 
-Opening the Settings GUI checks GitHub for the latest release tag. If it's newer than what's installed, a popup offers to open the releases page.
+Opening the Settings GUI checks GitHub for the latest release tag. If that tag is genuinely newer than the version you are running, a red **Update** pill appears in the window header — click it to open the releases page. Nothing blocks the window, so the check never costs you the trip.
+
+***
 
 **Q: Can I check for updates without opening the Settings window?**
 
-Partially — You still have to trigger the `Test` trigger but if you press `Yes` in the update notification popup, the check won't open the GUI but the GitHub page instead.
+No — the check runs as part of the `Test` trigger that opens the settings window.
 
 ---
 
 # Is Trivia Game an AI Slop?
-Partially it is. This script has been developed with input from the streamer.bot community and is support by AI.
-But i spend a lot of time putting heart and soul in it and my goal was to create a robust and valid moderation tool for everyone and easy to use.
-I understand that people, especially IT savvy people, will dislike the project because of the use of AI and i absolutely understand and support their point of view.
-But i had a lot of fun making it as with all my other projects, so i used it to "learn" coding and used AI for something valuable.
 
-AI can create bugs and i am not a developer in classical terms. But i spend a reasonable amount of time fixing any bugs that occured while testing.
+Partially, yes. This script grew out of input from the Streamer.bot community with AI along for the ride.
+But i put a lot of heart and time into it, with the goal of building a chat game that is robust, fair and easy to use for everyone.
+I understand that people, especially IT savvy people, will dislike the project because of the use of AI, and i absolutely understand and support their point of view.
+Still, i had a lot of fun making it, as with all my other projects — i used it to "learn" coding and put AI to something worthwhile.
+
+AI can create bugs, and i am not a developer in classical terms. But i spend a reasonable amount of time fixing any bug that turns up while testing.
 If you still find bugs or have something to say, please let me hear it :)
