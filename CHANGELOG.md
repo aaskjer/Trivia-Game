@@ -130,7 +130,9 @@ tick-boxes are gone.
   Trivia commands in Streamer.bot. Channel point rewards stay Twitch-only, because no other
   platform has them.
 - An opentdb outage now says so. The log carried only "403 (Forbidden)", which reads like a
-  misconfiguration; it now repeats what their server answered, maintenance notice and all.
+  misconfiguration; it now repeats what their server answered, maintenance notice and all. The
+  settings window asks opentdb directly under **Questions → Sources** and says whether it is
+  answering, so a run of "Failed to fetch" in chat can be told apart from a setting you got wrong.
 
 ### Notes
 
