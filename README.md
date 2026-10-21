@@ -1,7 +1,6 @@
 <p align="center"><img src="https://github.com/aaskjer/Trivia-Game/blob/main/Assets/TG/Trivia-Game.png?raw=true" alt="TG banner" width="400" height="400"></p>
 
-Trivia Game is a Streamer.bot chat game for livestream platforms that runs interactive trivia rounds directly in chat, with support for Twitch, YouTube, and Kick.
-It fetches questions from Open Trivia Database.
+Trivia Game runs quiz rounds straight in your chat, on Twitch, YouTube and Kick. Questions come from the Open Trivia Database.
 
 
 ![Static Badge](https://img.shields.io/badge/https%3A%2F%2Fimg.shields.io%2Fbadge%2Fany_text-Twitch%2C_Kick%2C_YouTube-white?label=supported%20plattform)
@@ -12,33 +11,34 @@ It fetches questions from Open Trivia Database.
 
 ---
 
-# Overview
+## Overview
 
-- Manages active rounds per platform, supports normal and blitz modes, and tracks wins, points, and blitz stats through Streamer.bot user variables.
-- Configurable rounds with difficulty, question type, category, answer timers, and countdown reminders.
-- Flexible answer matching with numeric, exact, normalized, and fuzzy matching using Levenshtein distance.
-- Points system with difficulty multipliers, blitz multipliers, subscriber/VIP boosts, and optional addicted-user penalties.
-- Built-in leaderboard, personal stats, target-user stats, and optional monthly resets per platform.
-- WPF settings UI for configuration, scoreboard settings, action-log viewing, channel points setup, and message customization.
+- Every platform keeps its own round, normal or blitz. Wins, points and blitz stats are stored in Streamer.bot user variables.
+- Difficulty, question type, category, the answer timer and the countdown reminders are all yours to set.
+- Answers are matched four ways: by option number, exactly, normalized, or fuzzily by Levenshtein distance.
+- Payouts scale with difficulty and with blitz rounds. Subscribers and VIPs can be boosted, and viewers on the addicted list can be docked.
+- Draw questions from the Open Trivia Database, from a list you write yourself, or mix the two — and let viewers suggest their own from chat.
+- A Streamer.bot timed action can start rounds on its own, and one command or redemption can play several back to back.
+- A leaderboard, personal stats and stats for any viewer, with an optional monthly reset per platform.
+- Everything is configured in a settings window: game rules, questions, points, channel points, every chat message, and the action log.
 
 ---
 
 ## 🎫 Channel Points Mode (Twitch only)
 
-When `Use Channel Points To Start` is enabled, the start command is effectively disabled — only viewers who redeem the configured Channel Point reward can start a game, but everyone can play. Four modes are available:
+With **Only Channel Points** switched on, the start command stops working — a round begins only when someone redeems the reward you configured. Everyone can still answer. Channel points decide *whether* a round may start and nothing else: nothing is wagered, deducted or paid out in them.
 
 | Option | Info |
 |---------|---------|
-| **Cost** | The reward's point cost is the bet |
-| **Input** | The viewer types their bet into the reward's text field |
-| **Fixed** | Every redemption bets a fixed configured amount |
-| **Free** | All redemptions play for free regardless of cost |
+| **Reward ID (Single Round)** | The reward that plays exactly one round |
+| **Reward ID (Multi Round)** | An optional second reward that plays several rounds, up to **Max Rounds Per Redeem** |
+| **Refund Failed Redemptions** | Hands the points back when the redemption cannot start a round |
 
-The Script automatically knows which you'd picked, so no extra settings here
+The `Trivia Game` action needs a **Twitch → Channel Point Reward Redemption** trigger for any of this to reach the script. The current import ships with it; an install that updated only the code may not have it.
 
 ---
 
-# Get Started
+## Get Started
 
 [Setup Guide](https://github.com/aaskjer/Trivia-Game/blob/main/Setup-Guide.md)
 
@@ -50,7 +50,7 @@ The Script automatically knows which you'd picked, so no extra settings here
 
 ---
 
-# Credits & Links
+## Credits & Links
 
 
 [aaskjer on Twitch](https://twitch.tv/aaskjer)
