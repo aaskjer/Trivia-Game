@@ -114,7 +114,7 @@ More information and the walk-through are in the [Setup Guide](Setup-Guide.md).
 
 ## Credits & links
 
-[aaskjer on Twitch](https://twitch.tv/aaskjer) · [Streamer.bot](https://streamer.bot) ·
+[aaskjer on Twitch](https://twitch.tv/aaskjer) · [aaskjer.github.io](https://aaskjer.github.io/) · [Streamer.bot](https://streamer.bot) ·
 [nate1280](https://www.patreon.com/c/nate1280/home) · [Open Trivia Database](https://opentdb.com)
 
 YOU ♡
