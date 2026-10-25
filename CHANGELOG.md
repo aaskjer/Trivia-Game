@@ -3,6 +3,40 @@
 Earlier releases are in the [release notes](https://github.com/aaskjer/Trivia-Game/releases).
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## [8.1.1] - 2026-10-25
+
+Hardening of the settings window. `configs.json` is read as it stands; no setting changes.
+
+### Fixed
+
+- **A damaged `configs.json` took the whole settings script down.** The settings were read into a
+  static field, so a file that does not parse threw before anything in the script ran: the window
+  never opened, and there was no way back except deleting the file by hand. The window now names
+  the damaged file, reads the settings back from the copy beside it or falls back to the defaults,
+  and keeps the unreadable one as `configs.json.broken`.
+- **Every save leaves `configs.json.bak` behind** — the file as it was before that save, which is
+  what the window reads back when the live one turns out to be damaged. The custom questions are
+  written the same way. A file that does not parse itself is never kept as the backup, so a broken
+  one cannot overwrite the last good copy.
+- A `configs.json` the game script happens to be holding open is waited out instead of failing on
+  the first try, both when reading and when writing.
+- **Only one settings window opens.** A second trigger while it was up opened another one with its
+  own copy of the settings, and whichever was saved last won. It now brings the open window to the
+  front.
+- A name typed into a list on the Access page and not finished with Enter or a comma was dropped
+  when Save was clicked straight away.
+- The cooldowns and the auto-start interval are handed over as one set, so a save can no longer be
+  picked up half-written.
+
+### Changed
+
+- The update check runs beside the window instead of in front of it. A GitHub call that times out
+  used to hold the window back for its full three seconds; the Update pill appears once GitHub
+  answers.
+- The Log page reads the log files the first time it is opened, not while the window is being
+  built. Every `Trivia-log-*.txt` in the Logs folder used to be read on every opening, for a page
+  most openings never look at.
+
 ## [8.1.0] - 2026-10-25
 
 Four new question sources, and the fixes a review of all three scripts turned up. `configs.json`
