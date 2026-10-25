@@ -29,7 +29,20 @@ The round and what it pays. Difficulty, question type, category, how long answer
 ## Questions
 <p align="center"><img alt="grafik" src="https://github.com/aaskjer/Trivia-Game/blob/main/Assets/setup-guide/questions.png?raw=true" alt="Questions page"></p>
 
-Three tabs. The first is your own question bank, with search and filters — it gets the whole page, because that is where the work happens. The second decides where each round's question comes from and which of your own may be drawn. The third is whether viewers may suggest questions with `!Suggest`, and under what conditions.
+Three tabs. The first is your own question bank, with search and filters — it gets the whole page, because that is where the work happens. The second, **Sources**, decides where each round's question comes from — opentdb, Wikidata, OdeNet, PokeAPI, IGDB, your own list, or yours mixed with opentdb — and in which language, checks that the source answers, and sets which of your own questions may be drawn. The third is whether viewers may suggest questions with `!Suggest`, and under what conditions.
+
+Wikidata, OdeNet and PokeAPI need nothing from you. OdeNet is German only and downloads its word list (about 4 MB) the first time a round needs it. IGDB needs a key of your own:
+
+### IGDB
+
+IGDB belongs to Twitch and only answers an application registered there.
+
+1. Open the [Twitch developer console](https://dev.twitch.tv/console/apps) and click `Register Your Application`.
+2. Any name, `http://localhost` as the OAuth Redirect URL, category `Application Integration`, client type `Confidential`. Click `Create`.
+3. Click `Manage` on the new application. Copy the **Client ID**, then click `New Secret` and copy the **Client Secret**.
+4. In the settings window, pick **IGDB** under **Questions → Sources**, paste both into the fields that appear, and click `Check`. *Twitch accepted the Client ID and Client Secret* means you are done — save.
+
+The secret is stored in `configs.json` on your PC and only ever sent to Twitch, to fetch IGDB's access token. The field hides it, so it stays safe on stream.
 
 ## Access
 <p align="center"><img alt="grafik" src="https://github.com/aaskjer/Trivia-Game/blob/main/Assets/setup-guide/access.png?raw=true" alt="Access page"></p>
