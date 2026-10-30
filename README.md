@@ -69,6 +69,7 @@ on a shorter timer and for a bigger payout. Twitch, YouTube and Kick each play t
   - [OdeNet](https://github.com/hdaSprachtechnologie/odenet) by Melanie Siegel & Francis Bond (CC BY-SA 4.0): German vocabulary
   - [PokeAPI](https://pokeapi.co): Pokémon
   - [IGDB.com](https://www.igdb.com): video games
+- **Works with:** [Currency Core by StreamUP](https://streamup.tips/product/currency-core) · [LOYALTY POINTS by tawmae](https://tawmae.xyz/loyalty-points)
 - **Thanks:** YOU ♡
 
 Pokémon and its names are trademarks of Nintendo, Creatures and GAME FREAK. None of the projects above is
