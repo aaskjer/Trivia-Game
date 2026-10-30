@@ -2,9 +2,11 @@
   <img src="https://github.com/aaskjer/Trivia-Game/blob/main/Assets/TG/Trivia-Game.png?raw=true" alt="Trivia Game" width="340" height="340">
 </p>
 
+<h1 align="center">Trivia Game</h1>
+
 <p align="center">
   <b>Quiz rounds straight in your chat — on Twitch, YouTube and Kick.</b><br>
-  Questions come from the Open Trivia Database, Wikidata, OdeNet, PokeAPI or IGDB — or from a list you write yourself.
+  Questions from the Open Trivia Database, Wikidata, OdeNet, PokeAPI or IGDB — or from a list you write yourself.
 </p>
 
 <p align="center">
@@ -16,134 +18,58 @@
 </p>
 
 <p align="center">
+  <a href="https://github.com/aaskjer/Trivia-Game/releases"><b>Download</b></a> &nbsp;·&nbsp;
   <a href="Setup-Guide.md"><b>Setup Guide</b></a> &nbsp;·&nbsp;
   <a href="FAQ.md"><b>FAQ</b></a> &nbsp;·&nbsp;
-  <a href="Import-String.md"><b>Import String</b></a> &nbsp;·&nbsp;
-  <a href="https://github.com/aaskjer/Trivia-Game/releases"><b>Download</b></a>
+  <a href="Import-String.md"><b>Import String</b></a>
 </p>
 
 ---
 
-## A round in chat
+## 📖 Overview
 
-This is the shape of a round as it ships — placeholders and all. All 63 chat lines are yours to
-rewrite on the Messages page.
+Trivia Game is a quiz for Streamer.bot. A round posts a question with numbered options and a countdown.
+In a normal round everyone who answers correctly wins. In a blitz round the first correct answer ends it,
+on a shorter timer and for a bigger payout. Twitch, YouTube and Kick each play their own round.
 
-```
-❓
-{question}
-▶ 1. {answer}
-▶ 2. {answer}
-▶ 3. {answer}
-▶ 4. {answer}
-| 🌟 {difficulty} | 📚 {category} | ⏳ {seconds}s to answer!
+## ✨ Highlights
 
-🎉 Winners: {winners}! The correct answer was: ‘{correctAnswer}’. 🏆
-🏅 {winners} each earned {points} {pointsName}!
-```
+- 📚 **Six question sources.** The Open Trivia Database, Wikidata, German vocabulary from OdeNet, Pokémon from
+  PokeAPI, video games from IGDB, or your own list, alone or mixed with opentdb. Viewers can submit
+  questions with `!Suggest`.
+- 🌟 **Difficulty that means something.** Wikidata, PokeAPI and IGDB rank what they know by how well known it
+  is, so *easy* asks about Japan and Pikachu and *hard* about Nauru and Garbodor.
+- ✅ **Lenient answers, strict numbers.** Answers match by option number, exact text, normalized text or a close
+  spelling. A number is never "close": 1995 is not 1994. Only a viewer's first answer counts.
+- 🔁 **Rounds that start themselves.** A Streamer.bot timed action can open a round, and one command or
+  redemption can play several back to back.
+- 📺 **An overlay that gives nothing away.** It shows the question, the countdown and how many have answered,
+  never what they picked. The answer appears only once the round is over, followed by the winners and the
+  leaderboard. It runs on Streamer.bot's own WebSocket server and picks a running round back up after a
+  scene switch.
+- 💰 **Payouts that scale.** Difficulty and blitz rounds raise the reward. Subscribers and VIPs can be boosted,
+  viewers on the addicted list docked. Leaderboard and stats can reset monthly per platform.
+- 🎫 **Channel Points as a start button.** On Twitch a redemption can start a round. Nothing is wagered or paid
+  out in channel points.
 
-In a normal round everyone who got it right wins. In a **blitz** round the first correct answer
-ends it on the spot, on a shorter timer and for a bigger payout.
-
----
-
-## What it does
-
-- **Every platform plays its own round.** Twitch, YouTube and Kick each keep a separate game, and
-  the reply goes back to the chat the command came from.
-- **Four ways to answer.** By option number, by exact text, normalized, or fuzzily by Levenshtein
-  distance — you decide which of those count.
-- **Six places to get questions.** The Open Trivia Database, questions built from Wikidata, German
-  vocabulary from OdeNet, Pokémon from PokeAPI, video games from IGDB — or your own list, alone or
-  mixed with opentdb. Viewers can write trivia for you with `!Suggest`.
-- **Payouts that scale.** Difficulty and blitz rounds raise the reward. Subscribers and VIPs can be
-  boosted, viewers on the addicted list docked.
-- **Rounds that start themselves.** A Streamer.bot timed action can open a round on its own, and
-  one command or redemption can play several back to back.
-- **A board and stats.** A leaderboard, personal stats, stats for any viewer, with an optional
-  monthly reset per platform. Wins, points and blitz stats live in Streamer.bot user variables.
-- **One settings window for all of it.** Game rules, questions, points, channel points, every chat
-  message and the action log.
+<p align="center">
+  <img src="https://github.com/aaskjer/Trivia-Game/blob/main/Assets/overlay/round.png?raw=true" alt="A round running on the overlay" width="49%">
+  <img src="https://github.com/aaskjer/Trivia-Game/blob/main/Assets/overlay/result.png?raw=true" alt="The result of that round on the overlay" width="49%">
+</p>
 
 ---
 
-## Commands
+## Credits
 
-These are the default names — in Streamer.bot you can bind them to whatever you like.
+- **Author:** [aaskjer on Twitch](https://twitch.tv/aaskjer) · [aaskjer.github.io](https://aaskjer.github.io/)
+- **Built for:** [Streamer.bot](https://streamer.bot) by [nate1280](https://www.patreon.com/c/nate1280/home)
+- **Data & services:**
+  - [Open Trivia Database](https://opentdb.com): questions
+  - [Wikidata](https://www.wikidata.org) (CC0): generated questions
+  - [OdeNet](https://github.com/hdaSprachtechnologie/odenet) by Melanie Siegel & Francis Bond (CC BY-SA 4.0): German vocabulary
+  - [PokeAPI](https://pokeapi.co): Pokémon
+  - [IGDB.com](https://www.igdb.com): video games
+- **Thanks:** YOU ♡
 
-| Command | What it does |
-|---|---|
-| `!Trivia` | Starts a round. Mod-only while **Only moderators may start** is on, and replaced by a redemption while rounds start from **Channel points**. |
-| `!Trivia <category>` | A named category: `!Trivia history`, `!Trivia video games`. Short forms work too — tv, movies, anime, maths. With Wikidata the topics are geography, science, art, literature, film and music. Needs **Let chat pick the category**. |
-| `!Trivia <n> <category>` | Both at once: `!Trivia 3 science` plays three science rounds, and the category sticks for the whole run. |
-| *just type in chat* | Your answer. |
-| `!SkipTrivia` | Throws the question away without scoring it. The answer stays hidden. |
-| `!ForceEndTrivia` | Ends the round early but still scores it — answers already in count, and the answer is revealed. Stops a back-to-back series too, even between two questions. Always mod-only. |
-| `!Suggest q \| correct \| wrong \| wrong` | Adds a question of the viewer's own to the pool. Set the guard under **Questions → Suggestions**. |
-| `!TA add\|remove <user>` | Adds or removes a viewer from the half-payout list, straight into the Access page. |
-| `!TriviaScoreboard` | The top players for the platform the command came from. |
-| `!TStats` · `!TSS [@user]` | Your own stats, or somebody else's if you tag them. |
-
-**How an answer is matched.** Each one is checked in a fixed order and the first rule that matches
-wins: exact text, then the option number, then normalized text, then a close spelling within the
-fuzzy tolerance. The option number is skipped when an option is itself that number, so a question
-whose answers are numbers still behaves, and a number is never "close" — 1995 is not 1994. Only a
-viewer's first answer counts.
-
----
-
-## Where the questions come from
-
-Pick one on **Questions → Sources**. Everything fetched is kept under
-`Chat Games/Trivia Game/Sources`, so a restart does not ask the same service again.
-
-| Source | What it asks | Language | Needs |
-|---|---|---|---|
-| **opentdb** | The Open Trivia Database: two dozen categories, filtered on the Game page | English | nothing |
-| **Wikidata (SPARQL)** | Capitals, currencies, continents, cities, World Heritage Sites, chemical symbols, moons, painters, authors, film directors, composers | English or German | nothing |
-| **OdeNet (deutsches WordNet)** | Which word fits a definition, which word means the same | German | a one-time 4 MB download |
-| **PokeAPI** | Types, generations, Pokédex numbers and entries, evolutions | English or German | nothing |
-| **IGDB** | Release years, studios, platforms, which game came out first | English or German | a Twitch developer application — see the [Setup Guide](Setup-Guide.md#igdb) |
-| **My questions only** | Your list on the Question bank | as you wrote it | nothing |
-| **Mine + opentdb** | Both, mixed by a percentage | — | nothing |
-
-The difficulty and question type on the Game page apply to every online source. Wikidata, PokeAPI
-and IGDB rank what they know by how well known it is, so *easy* asks about Japan and Pikachu and
-*hard* about Nauru and Garbodor.
-
----
-
-## 🎫 Channel points (Twitch only)
-
-With **Channel points** picked on the Access page, the start command stops working — a round
-begins when someone redeems the reward you configured. Everyone can still answer. Points decide *whether* a round may
-start and nothing else: nothing is wagered, deducted or paid out in them.
-
-| Option | Info |
-|---|---|
-| **Reward ID (single round)** | The reward that plays exactly one round |
-| **Reward ID (multi round)** | An optional second reward that plays several, up to **Max per redeem** |
-| **Refund redemptions that don't start a round** | Hands the points back when the redemption cannot start a round |
-
-The `Trivia Game` action needs a **Twitch → Channel Point Reward Redemption** trigger for any of
-this to reach the script. The current import ships with it; an install that updated only the code
-may not have it.
-
-
-
-More information and the walk-through are in the [Setup Guide](Setup-Guide.md).
-
----
-
-## Credits & links
-
-[aaskjer on Twitch](https://twitch.tv/aaskjer) · [aaskjer.github.io](https://aaskjer.github.io/) · [Streamer.bot](https://streamer.bot) ·
-[nate1280](https://www.patreon.com/c/nate1280/home) · [Open Trivia Database](https://opentdb.com) ·
-[Wikidata](https://www.wikidata.org) (CC0) ·
-[OdeNet](https://github.com/hdaSprachtechnologie/odenet) (Melanie Siegel & Francis Bond, CC BY-SA 4.0) ·
-[PokeAPI](https://pokeapi.co) · [IGDB.com](https://www.igdb.com)
-
-Pokémon and its names are trademarks of Nintendo, Creatures and GAME FREAK. None of the projects
-above is affiliated with or endorses Trivia Game.
-
-YOU ♡
+Pokémon and its names are trademarks of Nintendo, Creatures and GAME FREAK. None of the projects above is
+affiliated with or endorses Trivia Game.
