@@ -51,6 +51,9 @@ on a shorter timer and for a bigger payout. Twitch, YouTube and Kick each play t
   viewers on the addicted list docked. Leaderboard and stats can reset monthly per platform.
 - 🎫 **Channel Points as a start button.** On Twitch a redemption can start a round. Nothing is wagered or paid
   out in channel points.
+- ⚙️ **One settings window.** Built on [UIFramework for streamer.bot](https://github.com/aaskjer/UIFramework-Streamer.bot),
+  the window every chat game of this family shares: English or German, a chat preview for every message, a
+  difficulty dial, and it keeps itself up to date.
 
 <p align="center">
   <img src="https://github.com/aaskjer/Trivia-Game/blob/main/Assets/overlay/round.png?raw=true" alt="A round running on the overlay" width="49%">

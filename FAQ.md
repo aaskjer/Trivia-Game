@@ -11,7 +11,9 @@ Everything sits under your Streamer.bot base directory:
 Chat Games/Trivia Game/configs.json             ← settings and all chat messages
 Chat Games/Trivia Game/Trivia-Questions.json    ← the questions you write yourself
 Chat Games/Trivia Game/Sources/                 ← what Wikidata, OdeNet, PokeAPI and IGDB sent
-Chat Games/Trivia Game/Overlay/                 ← the OBS overlay page, written by the settings window
+Chat Games/Trivia Game/Overlay/                 ← the OBS overlay page, written by the game
+Chat Games/Trivia Game/uiframework.layout.json  ← the window's theme, language and your layout of it
+UIFramework/lib/                                ← UIFramework.dll, which the settings action fetches and keeps current
 Chat Games/Logs/Trivia-log-YYYY-MM-DD.txt       ← action log, a fresh file per day
 ```
 Settings and messages share `configs.json`. An older `messages.json` is still read if it exists and is folded into `configs.json` the next time you save. Log files are kept indefinitely — nothing is deleted automatically.
@@ -23,14 +25,15 @@ You should never need to edit these by hand — use the built-in Settings GUI in
 **Q: The Settings GUI won't open / crashes immediately. What do I do?**
 
 - Check the Streamer.bot log for error details and please report it on the [issues page](https://github.com/aaskjer/Trivia-Game/issues).
-- A malformed `configs.json` stops the GUI opening at all. Delete the corrupt file and restart — it comes back with defaults.
-- If `Trivia-Questions.json` cannot be read, the GUI opens with an empty question list and says so. Fix or move that file before saving, or saving overwrites it.
+- A malformed `configs.json` opens the window on its defaults with a notice; the file is kept beside it as `.broken` and the last good copy as `.bak`. Save to write a fresh one.
+- If `Trivia-Questions.json` cannot be read, the window shows the example questions and says so in Streamer.bot's log. Fix or move that file before saving, or saving overwrites it.
+- The window needs `UIFramework.dll`, fetched from GitHub on first use into `UIFramework\lib` next to Streamer.bot. Without a connection the first time, the window cannot open; the Streamer.bot log says so.
 
 ***
 
 **Q: How do I reset all settings to defaults?**
 
-Open the Settings GUI and click the ↺ button at the bottom left. That rewrites `configs.json` with factory values and reopens the window; the questions you wrote yourself are left alone. For a single page instead, use the ↻ button beside it — that one writes nothing until you save.
+Open the settings window and click the ↺ button at the bottom left. That puts every setting back to its default and saves; the questions you wrote yourself are left alone (`Restore defaults` on the Questions page brings the examples back, once you save).
 
 ***
 
@@ -301,7 +304,7 @@ Yes. `!TSS @Username` looks up anyone's wins, points, blitz wins and blitz point
 
 **Q: How do I put the game on stream?**
 
-Click `Set it up in OBS` on the **Overlay** page of the settings window. It switches the overlay on, saves, and adds a browser source to OBS through Streamer.bot's OBS connection. Streamer.bot's WebSocket server has to be running — the [Setup Guide](Setup-Guide.md#overlay) has every step, and the way to add it by hand with `Copy URL`.
+Switch on **Send rounds to the overlay** on the **Overlay** page, save, and click `Set it up in OBS`. It adds a browser source to OBS through Streamer.bot's OBS connection. Streamer.bot's WebSocket server has to be running — the [Setup Guide](Setup-Guide.md#overlay) has every step, and the way to add it by hand with `Copy URL`.
 
 ***
 
@@ -362,7 +365,7 @@ Yes. Each platform holds its own session in memory, so a Twitch round and a YouT
 
 **Q: How do I know when a new version is available?**
 
-Opening the Settings GUI checks GitHub for the latest release tag. If that tag is genuinely newer than the version you are running, a red **Update** pill appears in the window header — click it to open the releases page. Nothing blocks the window, so the check never costs you the trip.
+Opening the settings window checks GitHub for the latest release tag. If that tag is genuinely newer than the version you are running, an **Update** pill appears in the window header — click it to open the releases page. Nothing blocks the window, so the check never costs you the trip. The window itself (UIFramework.dll) updates on its own; `autoUpdate: false` in `uiframework.layout.json` switches that off.
 
 ***
 

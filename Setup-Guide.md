@@ -15,9 +15,9 @@ The commands ship disabled. Enable all of them, or the parts that depend on them
 # Setup
 <p align="center"><img alt="grafik" src="https://github.com/user-attachments/assets/8452f85a-daf0-4574-a28c-e9fd0c2eeecf"></p>
 
-Go to `Actions`, select `[TG] - Settings`, right-click the `Test` trigger and choose `Test Trigger`. That opens the settings window.
+Go to `Actions`, select `[TG] - Settings`, right-click the `Test` trigger and choose `Test Trigger`. That opens the settings window. The first time, it fetches `UIFramework.dll` from GitHub (the window is [UIFramework for streamer.bot](https://github.com/aaskjer/UIFramework-Streamer.bot)'s, shared by every chat game of this family) and keeps it up to date from then on.
 
-Eight pages sit on the rail down the left side. `Ctrl+1` to `Ctrl+8` jump between them, `Ctrl+S` saves.
+Ten pages sit on the rail down the left side. The pencil at the bottom switches the theme and the language (English or German) and lets you rename, move or hide pages and fields.
 
 Twitch, YouTube and Kick all play, always — there is nothing to switch on. Restrict the Streamer.bot commands if you want the game off a platform.
 
@@ -29,7 +29,17 @@ The round and what it pays. Difficulty, question type, category, how long answer
 ## Questions
 <p align="center"><img alt="grafik" src="https://github.com/aaskjer/Trivia-Game/blob/main/Assets/setup-guide/questions.png?raw=true" alt="Questions page"></p>
 
-Three tabs. The first, **Custom List**, holds your own questions, with search and filters — it gets the whole page, because that is where the work happens. The second, **Sources**, decides where each round's question comes from — opentdb, Wikidata, OdeNet, PokeAPI, IGDB, your own list, or yours mixed with opentdb — and in which language, checks that the source answers, and sets which of your own questions may be drawn. The third is whether viewers may suggest questions with `!Suggest`, and under what conditions.
+Your own questions, one row each: the switch that puts it in play, the question, the correct answer, the wrong answers as `a | b | c`, a category, a difficulty (easy, medium, hard or very hard) and who suggested it from chat. `Add row` adds one, `×` takes one out, `Restore defaults` brings the example questions back. Below the list: which of your own questions may be drawn.
+
+## Sources
+<p align="center"><img alt="grafik" src="https://github.com/aaskjer/Trivia-Game/blob/main/Assets/setup-guide/sources.png?raw=true" alt="Sources page"></p>
+
+Where each round's question comes from — opentdb, Wikidata, OdeNet, PokeAPI, IGDB, your own list, or yours mixed with opentdb — and in which language; `Check` asks the chosen source whether it answers right now.
+
+## Suggestions
+<p align="center"><img alt="grafik" src="https://github.com/aaskjer/Trivia-Game/blob/main/Assets/setup-guide/suggestions.png?raw=true" alt="Suggestions page"></p>
+
+Whether viewers may suggest questions with `!Suggest`, who may, and how a suggestion arrives.
 
 Wikidata, OdeNet and PokeAPI need nothing from you. OdeNet is German only and downloads its word list (about 4 MB) the first time a round needs it. IGDB needs a key of your own:
 
@@ -40,14 +50,14 @@ IGDB belongs to Twitch and only answers an application registered there.
 1. Open the [Twitch developer console](https://dev.twitch.tv/console/apps) and click `Register Your Application`.
 2. Any name, `http://localhost` as the OAuth Redirect URL, category `Application Integration`, client type `Confidential`. Click `Create`.
 3. Click `Manage` on the new application. Copy the **Client ID**, then click `New Secret` and copy the **Client Secret**.
-4. In the settings window, pick **IGDB** under **Questions → Sources**, paste both into the fields that appear, and click `Check`. *Twitch accepted the Client ID and Client Secret* means you are done — save.
+4. In the settings window, pick **IGDB** on the **Sources** page, paste both into **Client ID** and **Client Secret**, and click `Check`. *Twitch accepted the Client ID and Client Secret* means you are done — save.
 
-The secret is stored in `configs.json` on your PC and only ever sent to Twitch, to fetch IGDB's access token. The field hides it, so it stays safe on stream.
+The secret is stored in `configs.json` on your PC and only ever sent to Twitch, to fetch IGDB's access token. The field shows it as typed, so keep the window off stream while you paste it.
 
 ## Access
 <p align="center"><img alt="grafik" src="https://github.com/aaskjer/Trivia-Game/blob/main/Assets/setup-guide/access.png?raw=true" alt="Access page"></p>
 
-Who gets in and how. A segment switch picks whether rounds start from `!trivia` or from a Twitch channel point reward — Twitch only, since no other platform has rewards, and chat everywhere still answers as usual. Below it: who may start and skip, the two cooldowns, and the blocked and addicted lists as name chips.
+Who gets in and how. A switch picks whether rounds start from `!trivia` or from a Twitch channel point reward — Twitch only, since no other platform has rewards, and chat everywhere still answers as usual. Below it: who may start and skip, the two cooldowns, and the blocked and addicted lists as name chips.
 
 ## Messages
 <p align="center"><img alt="grafik" src="https://github.com/aaskjer/Trivia-Game/blob/main/Assets/setup-guide/messages.png?raw=true" alt="Messages page"></p>
@@ -61,10 +71,10 @@ The OBS overlay: the running question with its countdown, then the answer, the w
 
 1. In Streamer.bot, open `Servers/Clients` → `WebSocket Server`. Tick `Auto Start`, click `Start Server` and note the port — `8080` unless you changed it. If you turn on its authentication, put the password into **Password** on the Overlay page.
 2. Connect OBS to Streamer.bot under `Stream Apps` → `OBS Studio`, if it is not already.
-3. On the **Overlay** page, click `Set it up in OBS`. It switches on **Send rounds to the overlay**, saves, and adds a browser source called `Trivia Overlay` to the scene `Trivia` — created if needed — at the size of your canvas. Leave **Scene** empty to use the scene that is live in OBS instead. If OBS already has a source of that name, you are asked whether to point it at the overlay again, which is also how a changed port or password reaches OBS.
+3. On the **Overlay** page, switch on **Send rounds to the overlay**, save, and click `Set it up in OBS`. It adds a browser source called `Trivia Overlay` to the scene `Trivia` — created if needed — at the size of your canvas. Leave **Scene** empty to use the scene that is live in OBS instead. If OBS already has a source of that name, it is pointed at the overlay again, which is also how a changed port or password reaches OBS.
 4. Click `Show a sample round`. One made-up round plays on the overlay in OBS, so you can see where it sits and how it looks. Viewers see it too if you are live.
 
-Without the button: click `Copy URL`, add a `Browser` source in OBS, untick `Local file`, paste the URL into `URL` and set the size to your canvas, usually `1920` × `1080`. `Try the demo` opens the overlay in your browser, playing sample rounds the way the page is set.
+Without the button: click `Copy URL` (it puts the address, port and password included, on the clipboard), add a `Browser` source in OBS, untick `Local file`, paste the URL into `URL` and set the size to your canvas, usually `1920` × `1080`. `Try the demo` opens the overlay in your browser, playing sample rounds the way the page is set.
 
 **What it shows** switches the answer count, the category and difficulty, the countdown, the winners and the leaderboard on and off on their own, and sets how long a result stays up and how many places the leaderboard lists. **Look** sets where the question sits, its size, the animations and five colours: accent, right answer, blitz, text and panel, with the panel's opacity. A save reaches an overlay that is already open in OBS straight away, and the labels follow the question language.
 
@@ -88,3 +98,7 @@ Anything else goes into the source's `Custom CSS` field, which wins over the col
 <p align="center"><img alt="grafik" src="https://github.com/aaskjer/Trivia-Game/blob/main/Assets/setup-guide/log.png?raw=true" alt="Log page"></p>
 
 Every round, answer and payout, searchable by user, platform or outcome. One file per day, and nothing is deleted automatically.
+
+## Checks
+
+`tools\check-all.ps1` runs everything that can be checked without Streamer.bot; `tools\run-window-tests.ps1` opens the real settings window through UIFramework's generic stub over an old-style `configs.json`.
