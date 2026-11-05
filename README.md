@@ -45,8 +45,8 @@ on a shorter timer and for a bigger payout. Twitch, YouTube and Kick each play t
   redemption can play several back to back.
 - 📺 **An overlay that gives nothing away.** It shows the question, the countdown and how many have answered,
   never what they picked. The answer appears only once the round is over, followed by the winners and the
-  leaderboard. It runs on Streamer.bot's own WebSocket server and picks a running round back up after a
-  scene switch.
+  leaderboard. One click adds it to OBS, and its colours, size and position are set in the settings window.
+  It runs on Streamer.bot's own WebSocket server and picks a running round back up after a scene switch.
 - 💰 **Payouts that scale.** Difficulty and blitz rounds raise the reward. Subscribers and VIPs can be boosted,
   viewers on the addicted list docked. Leaderboard and stats can reset monthly per platform.
 - 🎫 **Channel Points as a start button.** On Twitch a redemption can start a round. Nothing is wagered or paid
