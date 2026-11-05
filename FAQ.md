@@ -11,6 +11,7 @@ Everything sits under your Streamer.bot base directory:
 Chat Games/Trivia Game/configs.json             ← settings and all chat messages
 Chat Games/Trivia Game/Trivia-Questions.json    ← the questions you write yourself
 Chat Games/Trivia Game/Sources/                 ← what Wikidata, OdeNet, PokeAPI and IGDB sent
+Chat Games/Trivia Game/Overlay/                 ← the OBS overlay page, written by the settings window
 Chat Games/Logs/Trivia-log-YYYY-MM-DD.txt       ← action log, a fresh file per day
 ```
 Settings and messages share `configs.json`. An older `messages.json` is still read if it exists and is folded into `configs.json` the next time you save. Log files are kept indefinitely — nothing is deleted automatically.
@@ -194,7 +195,7 @@ The **Question source** dropdown under **Questions → Sources** decides:
 | **OdeNet (deutsches WordNet)** | German vocabulary from [OdeNet](https://github.com/hdaSprachtechnologie/odenet): which word fits a definition, which word means the same | German |
 | **PokeAPI** | Pokémon from [PokeAPI](https://pokeapi.co): types, generations, Pokédex numbers and entries, evolutions | English or German |
 | **IGDB** | Video games from [IGDB](https://www.igdb.com): release years, studios, platforms, which came out first | English or German |
-| **My questions only** | Your list on the Question bank | as you wrote it |
+| **My questions only** | Your list on the Custom List tab | as you wrote it |
 | **Mine + opentdb** | Both, mixed by **Mine (%)** | — |
 
 **Question language** beside it picks English or German for Wikidata, PokeAPI and IGDB. The **Difficulty** and **Question type** on the Game page apply to every online source; your own questions have filters of their own, kept apart so narrowing one cannot silently empty the other.
@@ -293,6 +294,51 @@ Switch on **Reset every platform monthly** or the per-platform toggles under **G
 **Q: Can I view stats for another user?**
 
 Yes. `!TSS @Username` looks up anyone's wins, points, blitz wins and blitz points.
+
+***
+
+## 📺 OBS Overlay
+
+**Q: How do I put the game on stream?**
+
+Click `Set it up in OBS` on the **Overlay** page of the settings window. It switches the overlay on, saves, and adds a browser source to OBS through Streamer.bot's OBS connection. Streamer.bot's WebSocket server has to be running — the [Setup Guide](Setup-Guide.md#overlay) has every step, and the way to add it by hand with `Copy URL`.
+
+***
+
+**Q: The overlay stays empty. What do I check?**
+
+- Streamer.bot's WebSocket server is running (`Servers/Clients` → `WebSocket Server`), on the port on the Overlay page.
+- **Send rounds to the overlay** is on, and you saved after switching it on.
+- `Show a sample round` plays one on every overlay that is connected. If that shows, the connection is fine.
+- Add `&debug=1` to the URL: a line in the corner then says whether it is connected, still trying, or being asked for a password.
+- With the server's authentication on, the Overlay page's **Password** has to match. After changing port or password, click `Set it up in OBS` again and let it point the existing source at the overlay.
+- A URL with `&platform=` only shows that platform's rounds.
+
+`&demo=1` plays sample rounds without Streamer.bot, so it tells a placement problem from a connection problem.
+
+***
+
+**Q: Can viewers read the answer off the overlay?**
+
+No. The answer is only sent once the round is over, a skipped round never sends it, and the answer count is only a number — never which option anybody picked.
+
+***
+
+**Q: OBS reloaded the overlay in the middle of a round. Is the round gone?**
+
+No. The game keeps its last overlay message in a temporary global per platform (`Trivia.Overlay.twitch` and so on), and the overlay asks for it whenever it connects, so it picks the running round — or the result still on screen — back up. The look comes back the same way, from the persisted global `Trivia.Overlay.look` that every save writes.
+
+***
+
+**Q: The overlay's leaderboard still shows last month after a reset day. Why?**
+
+The monthly reset runs on the first leaderboard or stats command on or after the reset day, not on the day itself. Until somebody uses one, the stats it would wipe are still there, and the overlay shows them.
+
+***
+
+**Q: Can I change how it looks?**
+
+Yes. The **Look** section of the Overlay page sets where the question sits, its size, the animations and the colours, and **What it shows** turns the answer count, category and difficulty, countdown, winners and leaderboard on and off. Saving there changes an overlay that is already open in OBS. For anything else, such as the font or the width, use the `Custom CSS` field of the browser source; it wins over the Overlay page, and the [Setup Guide](Setup-Guide.md#overlay) lists the variables.
 
 ***
 

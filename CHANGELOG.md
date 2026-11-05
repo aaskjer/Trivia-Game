@@ -3,6 +3,62 @@
 Earlier releases are in the [release notes](https://github.com/aaskjer/Trivia-Game/releases).
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## [8.2.0] - 2026-10-30
+
+An overlay for OBS. Nothing changes for an install that leaves it switched off.
+
+### Added
+
+- **An OBS overlay.** A browser source that shows the running round: the question with its options,
+  numbered the way chat lists them, a countdown with a bar, and how many have answered. When the
+  round ends it marks the right answer and shows the winners with their points, then the top of
+  the leaderboard. Blitz rounds are marked in red. It listens to Streamer.bot's own WebSocket
+  server, so there is nothing to install beside it.
+- **An Overlay page in the settings window.** The switch that turns it on, the WebSocket port and
+  password, what the overlay shows, and how it looks.
+- **`Set it up in OBS`**, the way Battleship and Blackjack do it: through Streamer.bot's OBS
+  connection it adds a browser source the size of the canvas to a scene of your choice, created if
+  needed, or to the scene that is live. A source of the same name is pointed at the overlay again
+  instead of doubled up, which is also how a changed port or password reaches OBS.
+- **`Show a sample round`** plays one made-up round on every connected overlay, to see where it sits
+  and how it looks in OBS. `Try the demo` plays them in the browser, the way the page is set.
+- **What it shows:** the answer count, category and difficulty, the countdown, the winners and the
+  leaderboard each switch on and off, plus how long the result stays up and how many places the
+  leaderboard lists. Category and difficulty have their own switch, apart from the chat message's.
+- **Look:** the question at the bottom or the top, its size from 50 to 150 %, the animations, and
+  five colours with a picker — accent, right answer, blitz, text and panel — plus the panel's
+  opacity. A save reaches an overlay already open in OBS, and the labels follow the question
+  language. The browser source's Custom CSS still wins over all of it.
+- The overlay picks a running round back up when OBS reloads it, from a temporary global the game
+  keeps per platform (`Trivia.Overlay.twitch`, `.youtube`, `.kick`), and its look from the
+  persisted global `Trivia.Overlay.look` the settings window writes on every save.
+- URL options for one platform only, the position and language whatever the page says, sample
+  rounds without Streamer.bot, and a connection line for troubleshooting.
+
+### Changed
+
+- The settings window has eight pages. Overlay sits after Messages, so Log, How to play and About
+  moved to `Ctrl+6`, `Ctrl+7` and `Ctrl+8`.
+- The first tab of the Questions page, where your own questions live, is called **Custom List**
+  instead of Question bank.
+- **A number box left empty, or holding half a number, stops the save.** It used to go in as 0 and
+  come out as whatever floor applies - an empty `Cache size` saved as 1, an empty `Base points`
+  as 0. Now Save names the fields and writes nothing until they hold a number.
+- **The theme button asks before it switches** when there are unsaved changes: save them, drop them
+  or stay. It used to save every page on the way without a word. Only the theme flag is written
+  now; the rest goes through Save.
+
+### Security
+
+- Everything the overlay shows goes in as text. A suggested question with markup in it is displayed
+  as written, never run.
+- The answer only reaches the overlay once the round is over, a skip never sends it, and the
+  answer count is never broken down by option.
+- A colour that is not `#RRGGBB` never reaches the overlay's styles, and the settings window saves
+  it as its default.
+- The WebSocket password is kept in `configs.json` and goes into the overlay's URL in OBS, because
+  the overlay signs in with it. The settings window shows it masked, in its box and in the URL.
+
 ## [8.1.1] - 2026-10-25
 
 Hardening of the settings window. `configs.json` is read as it stands; no setting changes.
