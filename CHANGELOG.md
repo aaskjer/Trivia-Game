@@ -3,6 +3,59 @@
 Earlier releases are in the [release notes](https://github.com/aaskjer/Trivia-Game/releases).
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## [9.0.0] - Unreleased
+
+The settings window moves into UIFramework for streamer.bot, so it is the same window every chat game of this
+family has, in English or German, and it keeps itself up to date. Nothing changes for chat; an existing
+`configs.json` and `Trivia-Questions.json` keep working.
+
+### Changed
+
+- **The settings window is UIFramework's.** `[TG] - Settings` is now UIFramework's generic settings action: it
+  fetches `UIFramework.dll` from GitHub on first use (into `UIFramework\lib` next to Streamer.bot) and keeps it
+  current; the window itself is declared once in `Trivia-Game.cs`, as the table of settings the game reads, so
+  the window and the game can never disagree. The same pages as before, with the Questions tabs as three pages of
+  their own: **Questions** (your own list and which of them may be drawn), **Sources** (where questions come from,
+  IGDB access, the reachability check) and **Suggestions**. The rail no longer has keyboard shortcuts.
+- **German.** With the window's language set to `de` (the pencil, then *Sprache*), every setting, section, page,
+  option and message of the window reads in German; the help and about pages stay English.
+- **The questions list** is the framework's row editor: one row per question with its switch, the question, the
+  correct answer, the wrong answers as `a | b | c`, category, difficulty and who suggested it. `Add row` adds one,
+  `×` takes one out, `Restore defaults` brings the example questions back. The wrong answers are written to
+  `Trivia-Questions.json` as that `a | b | c` text from now on; the game reads both that and the old array.
+- **The difficulty dial** is a slider with the same five stops, Relaxed to Brutal, filling in the same six numbers;
+  Custom leaves your own numbers alone.
+- **The overlay** is written and set up in OBS by the game action now (the window asks it): `Set it up in OBS`,
+  `Show a sample round`, `Copy URL`, `Try the demo` and the folder buttons answer in the window's footer; `Set it up
+  in OBS` and the sample use the settings as saved, so save first. A source OBS already has is pointed at the
+  overlay again without asking.
+- **Settings keys.** The window writes `configs.json` with camelCase keys; the old PascalCase keys are read through
+  aliases and moved over on the first save. `CooldownGlobalSeconds`, `CooldownUserSeconds`, `VarName`, `UseBotCD`
+  and `SendActionCD` are now `globalCooldown`, `userCooldown`, `pointsVariable`, `cooldownUseBot` and
+  `cooldownSendAction`. `DarkMode` and `Egg` move into `uiframework.layout.json` next to it, with the language.
+- **Custom triggers carry the round.** `Trivia: Round Won`, `Round Timeout`, `Round Skipped` and `Round ForceEnd`
+  fire with `roundOutcome`, `roundPlatform`, `roundId`, `roundBlitz`, `roundQuestion`, `roundCorrectAnswer`,
+  `roundCategory`, `roundDifficulty`, `roundSource`, `roundAnswers`, `roundWinners`, `roundWinnerCount`,
+  `roundPoints` and `roundCurrency` as arguments, and `GetLastRoundResult` (Execute C# Method on the game action)
+  hands the same to any other action. The action log's AWARD line names its change (`Change: +…`), which the Log
+  page reads.
+- **Tools.** `check-settings.ps1` checks the settings table against the game's and the scoreboard's classes on the
+  compiled scripts; `run-window-tests.ps1` opens the real window through the generic stub and writes
+  `hosts\trivia\schema.json` in the UIFramework repository; `gui-shots.ps1` photographs the window through the
+  framework's preview; `check-defaults.ps1`, `TgShotStub.cs`, `WindowTests.cs` and the page tests, which drove the
+  old window, are gone.
+
+### Known gaps (the framework's, for a later release)
+
+- The questions list has no search or difficulty filter, no Refresh, and no confirmation before deleting a row;
+  the Suggested by column can be edited; a question suggested from chat while the window is open is lost when the
+  window then saves the list (the old window folded it in); `SuggestedAtUtc` is not kept by the row editor.
+- The Client Secret and the overlay password are shown as typed; the old window masked them.
+- The IGDB fields and the suggestion reward are greyed out, not hidden, while they do not apply.
+- The overlay URL is not shown on the page; `Copy URL` puts it on the clipboard and says so.
+- The help page is static: the paragraphs that summed up the current settings are gone.
+- The placeholder chips under a message explain only the placeholders the framework knows.
+
 ## [8.2.0] - 2026-10-30
 
 An overlay for OBS. Nothing changes for an install that leaves it switched off.
