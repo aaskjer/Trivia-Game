@@ -18,8 +18,9 @@ family has, in English or German, and it keeps itself up to date. Nothing change
 - **A tidier Sources page.** Source, language and `Check` share one line, the answer of `Check` shows under them;
   only the description of the picked source is shown; the IGDB keys appear only while IGDB is picked, and the
   Client Secret is masked. The share of your own questions no longer reads "Mine (%) (%)".
-- **The question list is a table.** One line per question, a search box above, and the picked question in full
-  below to edit; *Suggested by* is filled by the game and only read here. Needs UIFramework 0.9.8.
+- **The question list is a table again,** edited in place like before UIFramework: one line per question, a click
+  into a cell edits it, a checkbox in every row switches it on or off, Delete removes the picked rows, a search box
+  above. *Suggested by* is filled by the game and only read here. Needs UIFramework 0.9.9.
 - **The settings window is UIFramework's.** `[TG] - Settings` is now UIFramework's generic settings action: it
   fetches `UIFramework.dll` from GitHub on first use (into `UIFramework\lib` next to Streamer.bot) and keeps it
   current; the window itself is declared once in `Trivia-Game.cs`, as the table of settings the game reads, so
