@@ -3,7 +3,7 @@
 Earlier releases are in the [release notes](https://github.com/aaskjer/Trivia-Game/releases).
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
-## [9.0.0] - Unreleased
+## [9.0.0] - 2026-11-07
 
 The settings window moves into UIFramework for streamer.bot, so it is the same window every chat game of this
 family has, in English or German, and it keeps itself up to date. Nothing changes for chat; an existing
@@ -11,6 +11,10 @@ family has, in English or German, and it keeps itself up to date. Nothing change
 
 ### Changed
 
+- Blitz *Chance*, *Subscriber*, *VIP*, the overlay's *Size* and *Panel opacity* and *Result shown for* no longer
+  show their unit twice ("(%) (%)", "(s) (s)"): the field adds it itself.
+- The host block in `Trivia Game` is UIFramework's current one (0.9.11). The window needs UIFramework 0.9.9 or
+  newer for the question table; the settings action fetches it.
 - **Your own questions mix with any source.** *Mine + opentdb* is gone from the source dropdown: **Mix in my
   questions** on the Sources page now mixes your list into whichever source is picked (Wikidata, OdeNet, PokeAPI,
   IGDB or opentdb), **Share of mine** says how often. *opentdb only* is just **opentdb**, *My questions only* is
