@@ -11,6 +11,15 @@ family has, in English or German, and it keeps itself up to date. Nothing change
 
 ### Changed
 
+- **Your own questions mix with any source.** *Mine + opentdb* is gone from the source dropdown: **Mix in my
+  questions** on the Sources page now mixes your list into whichever source is picked (Wikidata, OdeNet, PokeAPI,
+  IGDB or opentdb), **Share of mine** says how often. *opentdb only* is just **opentdb**, *My questions only* is
+  **Only my questions**. A `configs.json` with the old mixed source is rewritten as opentdb with mixing on.
+- **A tidier Sources page.** Source, language and `Check` share one line, the answer of `Check` shows under them;
+  only the description of the picked source is shown; the IGDB keys appear only while IGDB is picked, and the
+  Client Secret is masked. The share of your own questions no longer reads "Mine (%) (%)".
+- **The question list is a table.** One line per question, a search box above, and the picked question in full
+  below to edit; *Suggested by* is filled by the game and only read here. Needs UIFramework 0.9.8.
 - **The settings window is UIFramework's.** `[TG] - Settings` is now UIFramework's generic settings action: it
   fetches `UIFramework.dll` from GitHub on first use (into `UIFramework\lib` next to Streamer.bot) and keeps it
   current; the window itself is declared once in `Trivia-Game.cs`, as the table of settings the game reads, so

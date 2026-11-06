@@ -193,13 +193,14 @@ The **Question source** dropdown under **Questions → Sources** decides:
 
 | Source | Questions | Language |
 |---|---|---|
-| **opentdb only** | The [Open Trivia Database](https://opentdb.com) | English |
+| **opentdb** | The [Open Trivia Database](https://opentdb.com) | English |
 | **Wikidata (SPARQL)** | Built from [Wikidata](https://www.wikidata.org) facts: capitals, currencies, continents, cities, World Heritage Sites, chemical symbols, moons, painters, authors, film directors, composers | English or German |
 | **OdeNet (deutsches WordNet)** | German vocabulary from [OdeNet](https://github.com/hdaSprachtechnologie/odenet): which word fits a definition, which word means the same | German |
 | **PokeAPI** | Pokémon from [PokeAPI](https://pokeapi.co): types, generations, Pokédex numbers and entries, evolutions | English or German |
 | **IGDB** | Video games from [IGDB](https://www.igdb.com): release years, studios, platforms, which came out first | English or German |
-| **My questions only** | Your list on the Custom List tab | as you wrote it |
-| **Mine + opentdb** | Both, mixed by **Mine (%)** | — |
+| **Only my questions** | Your list on the Questions page | as you wrote it |
+
+**Mix in my questions** beside it draws a share of the rounds from your own list instead, whichever source is picked; **Share of mine** says how many (50 is roughly every other round). A settings file from before 9.0.0 with *Mine + opentdb* reads as opentdb with your questions mixed in.
 
 **Question language** beside it picks English or German for Wikidata, PokeAPI and IGDB. The **Difficulty** and **Question type** on the Game page apply to every online source; your own questions have filters of their own, kept apart so narrowing one cannot silently empty the other.
 
