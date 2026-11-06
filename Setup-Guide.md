@@ -34,7 +34,7 @@ Your own questions, one row each: the switch that puts it in play, the question,
 ## Sources
 <p align="center"><img alt="grafik" src="https://github.com/aaskjer/Trivia-Game/blob/main/Assets/setup-guide/sources.png?raw=true" alt="Sources page"></p>
 
-Where each round's question comes from — opentdb, Wikidata, OdeNet, PokeAPI, IGDB, your own list, or yours mixed with opentdb — and in which language; `Check` asks the chosen source whether it answers right now.
+Where each round's question comes from — opentdb, Wikidata, OdeNet, PokeAPI, IGDB or only your own list — and in which language; `Check` beside them asks the chosen source whether it answers right now. **Mix in my questions** adds your own list to any source, with **Share of mine** setting how often. The IGDB keys only show while IGDB is picked; the Client Secret is shown as dots until you click the eye.
 
 ## Suggestions
 <p align="center"><img alt="grafik" src="https://github.com/aaskjer/Trivia-Game/blob/main/Assets/setup-guide/suggestions.png?raw=true" alt="Suggestions page"></p>
