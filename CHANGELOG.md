@@ -21,7 +21,7 @@ family has, in English or German, and it keeps itself up to date. Nothing change
   **Only my questions**. A `configs.json` with the old mixed source is rewritten as opentdb with mixing on.
 - **A tidier Sources page.** Source, language and `Check` share one line, the answer of `Check` shows under them;
   only the description of the picked source is shown; the IGDB keys appear only while IGDB is picked, and the
-  Client Secret is masked. The share of your own questions no longer reads "Mine (%) (%)".
+  Client Secret is masked, as is the overlay's WebSocket password. The share of your own questions no longer reads "Mine (%) (%)".
 - **The question list is a table again,** edited in place like before UIFramework: one line per question, a click
   into a cell edits it, a checkbox in every row switches it on or off, Delete removes the picked rows, a search box
   above. *Suggested by* is filled by the game and only read here. Needs UIFramework 0.9.9.
@@ -33,10 +33,10 @@ family has, in English or German, and it keeps itself up to date. Nothing change
   IGDB access, the reachability check) and **Suggestions**. The rail no longer has keyboard shortcuts.
 - **German.** With the window's language set to `de` (the pencil, then *Sprache*), every setting, section, page,
   option and message of the window reads in German; the help and about pages stay English.
-- **The questions list** is the framework's row editor: one row per question with its switch, the question, the
-  correct answer, the wrong answers as `a | b | c`, category, difficulty and who suggested it. `Add row` adds one,
-  `×` takes one out, `Restore defaults` brings the example questions back. The wrong answers are written to
-  `Trivia-Questions.json` as that `a | b | c` text from now on; the game reads both that and the old array.
+- **The questions list** keeps its columns: the switch, the question, the correct answer, the wrong answers as
+  `a | b | c`, category, difficulty and who suggested it; `Add row`, `Remove row` and `Restore defaults` (the
+  example questions) sit under it. The wrong answers are written to `Trivia-Questions.json` as that `a | b | c`
+  text from now on; the game reads both that and the old array, and a question keeps `SuggestedAtUtc`.
 - **The difficulty dial** is a slider with the same five stops, Relaxed to Brutal, filling in the same six numbers;
   Custom leaves your own numbers alone.
 - **The overlay** is written and set up in OBS by the game action now (the window asks it): `Set it up in OBS`,
@@ -61,11 +61,10 @@ family has, in English or German, and it keeps itself up to date. Nothing change
 
 ### Known gaps (the framework's, for a later release)
 
-- The questions list has no search or difficulty filter, no Refresh, and no confirmation before deleting a row;
-  the Suggested by column can be edited; a question suggested from chat while the window is open is lost when the
-  window then saves the list (the old window folded it in); `SuggestedAtUtc` is not kept by the row editor.
-- The Client Secret and the overlay password are shown as typed; the old window masked them.
-- The IGDB fields and the suggestion reward are greyed out, not hidden, while they do not apply.
+- The questions list has a search but no difficulty filter and no Refresh, and no confirmation before deleting
+  rows; a question suggested from chat while the window is open is lost when the window then saves the list (the
+  old window folded it in).
+- The suggestion reward is greyed out, not hidden, while it does not apply.
 - The overlay URL is not shown on the page; `Copy URL` puts it on the clipboard and says so.
 - The help page is static: the paragraphs that summed up the current settings are gone.
 - The placeholder chips under a message explain only the placeholders the framework knows.
