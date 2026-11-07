@@ -16,7 +16,7 @@ Chat Games/Trivia Game/uiframework.layout.json  ← the window's theme, language
 UIFramework/lib/                                ← UIFramework.dll, which the settings action fetches and keeps current
 Chat Games/Logs/Trivia-log-YYYY-MM-DD.txt       ← action log, a fresh file per day
 ```
-Settings and messages share `configs.json`. An older `messages.json` is still read if it exists and is folded into `configs.json` the next time you save. Log files are kept indefinitely — nothing is deleted automatically.
+Settings and messages share `configs.json`. An older `messages.json` moves into `configs.json` on the first run of the game or of the settings window and stays as `messages.json.migrated`. Log files are kept indefinitely — nothing is deleted automatically.
 
 You should never need to edit these by hand — use the built-in Settings GUI instead.
 
