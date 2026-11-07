@@ -15,6 +15,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ### Changed
 
+- **Only the fields the source uses.** *Fetch ahead* shows for opentdb only, and *Mix in my questions* is gone
+  while your own questions are the source; before, they stood there greyed out.
 - **The settings action is UIFramework's stub 0.2.0.** When the game action hangs, the settings window waits 30
   seconds for its answer, then carries on and can be closed; before, it waited for good. A game that has not
   described itself for a minute no longer locks the settings until Streamer.bot restarts: the next run opens the
