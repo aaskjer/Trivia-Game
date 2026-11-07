@@ -15,6 +15,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ### Changed
 
+- **Messages from an old `messages.json` show in the settings window.** Before, only the game read that file: the
+  window showed the default texts in their place, and a save wrote those over your messages. The messages now move
+  into `configs.json` on the first run of the game or of the window, and the file stays as `messages.json.migrated`.
 - **The difficulty slider follows the numbers.** A panel under it, *How a round plays*, shows the answer times,
   the blitz times and the spelling tolerance as they stand, and moves the slider to the stop the numbers match, or
   to *Custom* once one of them is your own. Before, the slider opened on *Standard* whatever the saved numbers were.
