@@ -15,6 +15,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ### Changed
 
+- **The difficulty slider follows the numbers.** A panel under it, *How a round plays*, shows the answer times,
+  the blitz times and the spelling tolerance as they stand, and moves the slider to the stop the numbers match, or
+  to *Custom* once one of them is your own. Before, the slider opened on *Standard* whatever the saved numbers were.
 - **Only the fields the source uses.** *Fetch ahead* shows for opentdb only, and *Mix in my questions* is gone
   while your own questions are the source; before, they stood there greyed out.
 - **The settings action is UIFramework's stub 0.2.0.** When the game action hangs, the settings window waits 30
