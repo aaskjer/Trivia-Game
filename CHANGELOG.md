@@ -3,6 +3,14 @@
 Earlier releases are in the [release notes](https://github.com/aaskjer/Trivia-Game/releases).
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## [9.2.2] - 2026-11-08
+
+### Fixed
+
+- **Every time field says its unit.** Answer time, first reminder, delay between rounds, the blitz times, both
+  cooldowns and the overlay's result time carried no unit in the settings window, while the automatic-round fields
+  said "(minutes)". They now read "(s)", and those two "(min)".
+
 ## [9.2.1] - 2026-11-08
 
 ### Added
