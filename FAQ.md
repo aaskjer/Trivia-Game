@@ -325,7 +325,13 @@ Switch on **Send rounds to the overlay** on the **Overlay** page, save, and clic
 **Q: The overlay shows a different question from the one in chat. Why?**
 
 - **An old `&demo=1` in the source's URL.** Up to v9.2.0 a demo overlay never listened to Streamer.bot and played its sample questions (*What is the capital of Australia?* and two more) on their own clock for good. From v9.2.1 the first real round takes over; click `Set it up in OBS` to point the source at the plain URL again.
-- **Rounds on more than one platform.** Every platform plays its own question, and the overlay shows whichever started last. Add `&platform=twitch` (or `youtube`, `kick`) to the URL so it follows one chat. Up to v9.2.0, automatic rounds with **Only when chat has been active** off also went to platforms without a connected account, where no chat ever saw them; from v9.2.1 they only go where Streamer.bot has a broadcaster account.
+- **Rounds on more than one platform.** Every platform plays its own question, and the overlay shows whichever started last; the chip in front of the question says which platform it went to. Add `&platform=twitch` (or `youtube`, `kick`) to the URL so it follows one chat. Up to v9.2.0, automatic rounds went to every platform with a connected account, or with **Only when chat has been active** off to all three, so chats you were not streaming to got questions too; from v9.2.1 they only go where you are live.
+
+***
+
+**Q: Rounds that start themselves don't come.**
+
+From v9.2.1 an automatic round only goes to a platform you are live on. Each time the timed action fires, the game asks Twitch (through its API, with the account Streamer.bot is logged in with), YouTube (the broadcasts Streamer.bot monitors) and Kick (its public channel page). While you are offline nothing starts, which is on purpose. If a platform cannot be asked, for example because Twitch turned the login down or kick.com did not answer, chat from the last **Chat within** minutes decides for that platform instead. With **Only when chat has been active** on, a live platform also needs recent chat. Streamer.bot's debug log says why a platform was skipped.
 
 ***
 
@@ -355,7 +361,7 @@ The monthly reset runs on the first leaderboard or stats command on or after the
 
 **Q: Can I change how it looks?**
 
-Yes. The **Look** section of the Overlay page sets where the question sits, its size, the animations and the colours, and **What it shows** turns the answer count, category and difficulty, countdown, winners and leaderboard on and off. Saving there changes an overlay that is already open in OBS. For anything else, such as the font or the width, use the `Custom CSS` field of the browser source; it wins over the Overlay page, and the [Setup Guide](Setup-Guide.md#overlay) lists the variables.
+Yes. The **Look** section of the Overlay page sets where the question sits, its size, the animations and the colours, and **What it shows** turns the platform, the answer count, category and difficulty, countdown, winners and leaderboard on and off. Saving there changes an overlay that is already open in OBS. For anything else, such as the font or the width, use the `Custom CSS` field of the browser source; it wins over the Overlay page, and the [Setup Guide](Setup-Guide.md#overlay) lists the variables.
 
 ***
 

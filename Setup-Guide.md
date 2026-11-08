@@ -76,7 +76,7 @@ The OBS overlay: the running question with its countdown, then the answer, the w
 
 Without the button: click `Copy URL` (it puts the address, port and password included, on the clipboard), add a `Browser` source in OBS, untick `Local file`, paste the URL into `URL` and set the size to your canvas, usually `1920` × `1080`. `Try the demo` opens the overlay in your browser, playing sample rounds the way the page is set.
 
-**What it shows** switches the answer count, the category and difficulty, the countdown, the winners and the leaderboard on and off on their own, and sets how long a result stays up and how many places the leaderboard lists. **Look** sets where the question sits, its size, the animations and five colours: accent, right answer, blitz, text and panel, with the panel's opacity. A save reaches an overlay that is already open in OBS straight away, and the labels follow the question language.
+**What it shows** switches the platform the question went to, the answer count, the category and difficulty, the countdown, the winners and the leaderboard on and off on their own, and sets how long a result stays up and how many places the leaderboard lists. **Look** sets where the question sits, its size, the animations and five colours: accent, right answer, blitz, text and panel, with the panel's opacity. A save reaches an overlay that is already open in OBS straight away, and the labels follow the question language.
 
 | Add to the URL | What it does |
 |---|---|

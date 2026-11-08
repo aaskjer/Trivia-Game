@@ -5,6 +5,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [9.2.1] - 2026-11-08
 
+### Added
+
+- **The overlay names the platform.** A chip in front of the question says whether it went to Twitch, YouTube or
+  Kick, for streaming to more than one at once, where every platform plays a question of its own. *Which platform it
+  came from* under *What it shows* on the Overlay page turns it off.
+
 ### Fixed
 
 - **The overlay follows chat even with `&demo=1` in its URL.** The *Try the demo* answer told you to add `&demo=1`
@@ -14,9 +20,15 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 - **The overlay's result is shown for its full time in a run.** The next question waited for *Delay between
   rounds* alone, 5 seconds by default, and cut a 10 second result short. While the overlay is on, it now waits
   until the result, and the leaderboard after it when that is on, has been up for *Result shown for*.
-- **Automatic rounds only go where an account is connected.** With *Only when chat has been active* off, a round
-  was offered to Twitch, YouTube and Kick alike, and one on a platform without an account reached no chat but
-  played on the overlay over the real chat's question.
+- **Automatic rounds only go where you are live.** A round was offered to every platform with a connected account,
+  or with *Only when chat has been active* off to Twitch, YouTube and Kick alike: chats you were not streaming to got
+  questions, and the overlay showed whichever platform's question started last over the one your chat was asked.
+  The timed action now asks each platform first: Twitch through its API with Streamer.bot's own login, YouTube
+  through the broadcasts Streamer.bot monitors, Kick through its public channel page. Where it cannot be told,
+  recent chat decides, as before.
+- **The check before saving only asks about what you changed.** It named every problem the settings had on every
+  save, so *Save & Exit* right after a save asked again about something you had already kept on purpose, such as
+  *Only when chat has been active* switched off. It now asks only about the problems the save brings in.
 
 ## [9.2.0] - 2026-11-08
 
