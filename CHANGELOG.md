@@ -3,6 +3,21 @@
 Earlier releases are in the [release notes](https://github.com/aaskjer/Trivia-Game/releases).
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## [9.2.1] - 2026-11-08
+
+### Fixed
+
+- **The overlay follows chat even with `&demo=1` in its URL.** The *Try the demo* answer told you to add `&demo=1`
+  to the OBS source to place it, and an overlay with it never listened to Streamer.bot: it played its three sample
+  questions on their own 10 to 12 second clocks for every stream after, whatever chat was asked. A demo now listens
+  too, and the first real round ends the samples for good. The answer now points to *Show a sample round*.
+- **The overlay's result is shown for its full time in a run.** The next question waited for *Delay between
+  rounds* alone, 5 seconds by default, and cut a 10 second result short. While the overlay is on, it now waits
+  until the result, and the leaderboard after it when that is on, has been up for *Result shown for*.
+- **Automatic rounds only go where an account is connected.** With *Only when chat has been active* off, a round
+  was offered to Twitch, YouTube and Kick alike, and one on a platform without an account reached no chat but
+  played on the overlay over the real chat's question.
+
 ## [9.2.0] - 2026-11-08
 
 ### Added

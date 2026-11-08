@@ -83,7 +83,7 @@ Without the button: click `Copy URL` (it puts the address, port and password inc
 | `&platform=twitch` | Only that platform's rounds — `youtube` and `kick` work too. All of them otherwise |
 | `&position=top` | The question at the top whatever the Overlay page says, or `bottom` |
 | `&lang=de` | German labels whatever the question language, or `en` |
-| `&demo=1` | Plays sample rounds without Streamer.bot, to place the source |
+| `&demo=1` | Plays sample rounds until the first real round, with or without Streamer.bot, to place the source |
 | `&debug=1` | A line in the corner that says whether it reached Streamer.bot |
 
 Anything else goes into the source's `Custom CSS` field, which wins over the colours on the Overlay page:

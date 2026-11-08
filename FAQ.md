@@ -318,7 +318,20 @@ Switch on **Send rounds to the overlay** on the **Overlay** page, save, and clic
 - With the server's authentication on, the Overlay page's **Password** has to match. After changing port or password, click `Set it up in OBS` again and let it point the existing source at the overlay.
 - A URL with `&platform=` only shows that platform's rounds.
 
-`&demo=1` plays sample rounds without Streamer.bot, so it tells a placement problem from a connection problem.
+`&demo=1` plays sample rounds whether Streamer.bot is there or not, so it tells a placement problem from a connection problem. The first real round ends them.
+
+***
+
+**Q: The overlay shows a different question from the one in chat. Why?**
+
+- **An old `&demo=1` in the source's URL.** Up to v9.2.0 a demo overlay never listened to Streamer.bot and played its sample questions (*What is the capital of Australia?* and two more) on their own clock for good. From v9.2.1 the first real round takes over; click `Set it up in OBS` to point the source at the plain URL again.
+- **Rounds on more than one platform.** Every platform plays its own question, and the overlay shows whichever started last. Add `&platform=twitch` (or `youtube`, `kick`) to the URL so it follows one chat. Up to v9.2.0, automatic rounds with **Only when chat has been active** off also went to platforms without a connected account, where no chat ever saw them; from v9.2.1 they only go where Streamer.bot has a broadcaster account.
+
+***
+
+**Q: The next question of a run comes before the overlay's result is over.**
+
+Up to v9.2.0 the next question waited for **Delay between rounds** alone, 5 seconds by default, which cut a 10 second result short. From v9.2.1, while the overlay is on, the next question waits until the result — and the leaderboard after it, when that is on — has been up for **Result shown for**.
 
 ***
 
