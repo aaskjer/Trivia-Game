@@ -3,6 +3,22 @@
 Earlier releases are in the [release notes](https://github.com/aaskjer/Trivia-Game/releases).
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## [9.3.0] - 2026-11-10
+
+### Added
+
+- **The Addicted cut is a setting.** Viewers on the addicted list always lost half of every win. *Addicted cut*
+  under *Addicted* on the Access page now says how much: 50 as before, 20 for a lighter touch, 0 for none. The
+  message for a viewer added to the list names it as `{addictedCut}`; one saved with "50%" written out follows the
+  setting too.
+- **Rounds at random times, and only once chat has been talking.** Under *Rounds that start themselves* on the Game
+  page, *Random time* draws every wait anew between *Every* and *At most*, and *Only after chat lines* holds a round
+  back until a platform's chat has written that many lines since its last automatic round. Together with the fixed
+  interval these are the three ways a Streamer.bot timer can run.
+- **`StartRound` for your own actions.** An Execute C# Method sub-action on the game action starts a round from any
+  action: a hotkey, a Stream Deck button, a raid. Optional arguments `triviaPlatform`, `triviaRounds` and
+  `triviaCategory`; it sets `triviaStarted` and `triviaStartedOn`. No cooldown and no moderator check apply.
+
 ## [9.2.2] - 2026-11-08
 
 ### Fixed

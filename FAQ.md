@@ -181,7 +181,7 @@ So a 10% sub boost plus a 20% VIP boost on a 1,000-pt win pays `1,000 × 1.30 = 
 
 **Q: What is the "Addicted" system?**
 
-Viewers on the addicted list take a **50% point penalty** — they always earn half of what they would otherwise win. Manage the list with `!TA add|remove <user>` (mods only), or edit **Addicted viewers** on the **Access** page. Both write the same list, and a change made from chat while the window is open survives saving.
+Viewers on the addicted list have their winnings cut by the **Addicted cut** on the **Access** page: 50 by default, so they earn half; 20 leaves them four fifths, 0 turns the penalty off, 100 pays them nothing. It is applied last, so it cuts a subscriber or VIP boost too. Up to v9.2.2 the cut was fixed at 50%. Manage the list with `!TA add|remove <user>` (mods only), or edit **Addicted viewers** on the **Access** page. Both write the same list, and a change made from chat while the window is open survives saving.
 
 ***
 
@@ -326,6 +326,18 @@ Switch on **Send rounds to the overlay** on the **Overlay** page, save, and clic
 
 - **An old `&demo=1` in the source's URL.** Up to v9.2.0 a demo overlay never listened to Streamer.bot and played its sample questions (*What is the capital of Australia?* and two more) on their own clock for good. From v9.2.1 the first real round takes over; click `Set it up in OBS` to point the source at the plain URL again.
 - **Rounds on more than one platform.** Every platform plays its own question, and the overlay shows whichever started last; the chip in front of the question says which platform it went to. Add `&platform=twitch` (or `youtube`, `kick`) to the URL so it follows one chat. Up to v9.2.0, automatic rounds went to every platform with a connected account, or with **Only when chat has been active** off to all three, so chats you were not streaming to got questions too; from v9.2.1 they only go where you are live.
+
+***
+
+**Q: Can rounds come at random times, or only once chat has been talking?**
+
+Yes, from v9.3.0, under **Rounds that start themselves** on the Game page. **Random time** draws every wait anew between **Every** and **At most**, so chat cannot tell when the next round comes. **Only after chat lines** asks for that many lines in a platform's chat since its last automatic round; with too few, the round waits for the next turn of the timer and the lines keep counting. These are the three ways a Streamer.bot timer can run (interval, random interval, lines); the game keeps the random time and the lines itself, since Streamer.bot lets code set only a timer's interval. Leave the timed action `[TG] - Auto Trivia Timer` to the settings window.
+
+***
+
+**Q: Can one of my own actions start a round?**
+
+Yes, from v9.3.0: add an **Execute C# Method** sub-action to any action, pick the `Trivia Game` action's code and the method `StartRound`. A hotkey, a Stream Deck button, a raid or a channel point reward of your own then starts a round, with no cooldown and no moderator check. Set these arguments before it if you want them: `triviaPlatform` (`twitch`, `youtube`, `kick` or `all`), `triviaRounds` and `triviaCategory`. Without `triviaPlatform` the round goes to the chat the event came from, or, when the event came from no chat, to every platform with an account in Streamer.bot. Afterwards `triviaStarted` says whether a round began and `triviaStartedOn` where. A round already under way is left alone, and the method then returns false, which stops the rest of your action.
 
 ***
 
