@@ -18,6 +18,16 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 - **`StartRound` for your own actions.** An Execute C# Method sub-action on the game action starts a round from any
   action: a hotkey, a Stream Deck button, a raid. Optional arguments `triviaPlatform`, `triviaRounds` and
   `triviaCategory`; it sets `triviaStarted` and `triviaStartedOn`. No cooldown and no moderator check apply.
+- **Triggers and methods on the Help page.** The page now ends with every custom trigger and its arguments, and
+  the methods for your own actions. *Fire with sample values* under a trigger fires it once, so an action of
+  yours that listens to it can be tried without playing. Needs UIFramework 1.6.0, which the settings fetch by
+  themselves.
+
+### Changed
+
+- **The live check is UIFramework's.** Asking Twitch and Kick whether you are live moved into UIFramework 1.6.0,
+  where Hangman uses it too. Until the settings have been opened once with that version, recent chat decides in
+  its place, and Streamer.bot's log says so once.
 
 ## [9.2.2] - 2026-11-08
 
