@@ -341,6 +341,12 @@ Yes, from v9.3.0: add an **Execute C# Method** sub-action to any action, pick th
 
 ***
 
+**Q: Which custom triggers are there, and how do I try an action that listens to one?**
+
+From v9.3.0 the Help page of the settings lists them at its end, each with the arguments it carries, followed by the methods for your own actions. **Fire with sample values** under a trigger fires it once with made-up values (a winner called alice, 300 points), so your action runs without a round being played. The game itself does nothing when you press it.
+
+***
+
 **Q: Rounds that start themselves don't come.**
 
 From v9.2.1 an automatic round only goes to a platform you are live on. Each time the timed action fires, the game asks Twitch (through its API, with the account Streamer.bot is logged in with), YouTube (the broadcasts Streamer.bot monitors) and Kick (its public channel page). While you are offline nothing starts, which is on purpose. If a platform cannot be asked, for example because Twitch turned the login down or kick.com did not answer, chat from the last **Chat within** minutes decides for that platform instead. With **Only when chat has been active** on, a live platform also needs recent chat. Streamer.bot's debug log says why a platform was skipped.
