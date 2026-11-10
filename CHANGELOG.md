@@ -11,8 +11,14 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
   under *Addicted* on the Access page now says how much: 50 as before, 20 for a lighter touch, 0 for none. The
   message for a viewer added to the list names it as `{addictedCut}`; one saved with "50%" written out follows the
   setting too.
-- **Rounds at random times, and only once chat has been talking.** Under *Rounds that start themselves* on the Game
-  page, *Random time* draws every wait anew between *Every* and *At most*, and *Only after chat lines* holds a round
+- **Rounds while Twitch runs ads.** Under *Ad breaks* on the new Automation page: *Start a round when ads start*
+  plays as many rounds as fit the ad break, *Announce it before the ads* says so in chat 1 to 5 minutes ahead,
+  *Bonus during ads* makes rounds started during a break pay more, and *Rounds only during ads* keeps viewers'
+  starts to the breaks. Twitch only; the import brings the *Ad Run* and *Upcoming Ad* triggers for it, and
+  `Trivia: Ad Break Started` and `Trivia: Ad Break Ended` are there for your own actions.
+- **An Automation page.** The rounds that start themselves moved there from the Game page, next to the ad breaks.
+- **Rounds at random times, and only once chat has been talking.** Under *Rounds that start themselves* on the
+  Automation page, *Random time* draws every wait anew between *Every* and *At most*, and *Only after chat lines* holds a round
   back until a platform's chat has written that many lines since its last automatic round. Together with the fixed
   interval these are the three ways a Streamer.bot timer can run.
 - **`StartRound` for your own actions.** An Execute C# Method sub-action on the game action starts a round from any
