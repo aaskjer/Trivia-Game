@@ -331,7 +331,20 @@ Switch on **Send rounds to the overlay** on the **Overlay** page, save, and clic
 
 **Q: Can rounds come at random times, or only once chat has been talking?**
 
-Yes, from v9.3.0, under **Rounds that start themselves** on the Game page. **Random time** draws every wait anew between **Every** and **At most**, so chat cannot tell when the next round comes. **Only after chat lines** asks for that many lines in a platform's chat since its last automatic round; with too few, the round waits for the next turn of the timer and the lines keep counting. These are the three ways a Streamer.bot timer can run (interval, random interval, lines); the game keeps the random time and the lines itself, since Streamer.bot lets code set only a timer's interval. Leave the timed action `[TG] - Auto Trivia Timer` to the settings window.
+Yes, from v9.3.0, under **Rounds that start themselves** on the Automation page. **Random time** draws every wait anew between **Every** and **At most**, so chat cannot tell when the next round comes. **Only after chat lines** asks for that many lines in a platform's chat since its last automatic round; with too few, the round waits for the next turn of the timer and the lines keep counting. These are the three ways a Streamer.bot timer can run (interval, random interval, lines); the game keeps the random time and the lines itself, since Streamer.bot lets code set only a timer's interval. Leave the timed action `[TG] - Auto Trivia Timer` to the settings window.
+
+***
+
+**Q: Can a round start when Twitch runs ads?**
+
+Yes, from v9.3.0, under **Ad breaks** on the Automation page. Viewers cannot see the stream while ads run, but chat works as ever, so that is a good moment for a round.
+
+- **Start a round when ads start** plays as many rounds in a row as fit the ad break, within *Rounds per command*.
+- **Announce it before the ads** sends one line ahead of the break, 1 to 5 **Minutes before**; the line is on the Messages page.
+- **Bonus during ads** makes every Twitch round started during an ad break pay that much more.
+- **Rounds only during ads** lets viewers start a round only while ads run; moderators and the broadcaster always can.
+
+It is Twitch only, and it needs the two triggers the import brings on the game action (Twitch, Ads: *Ad Run* and *Upcoming Ad*), so import the new file once when updating. Streamer.bot tells when ads start and how long they run but not when they end; the game takes the break as over once that time has passed. Your own actions can listen to `Trivia: Ad Break Started` and `Trivia: Ad Break Ended`.
 
 ***
 
