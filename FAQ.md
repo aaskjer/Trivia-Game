@@ -416,7 +416,7 @@ Yes. Each platform holds its own session in memory, so a Twitch round and a YouT
 
 **Q: How do I know when a new version is available?**
 
-Opening the settings window checks GitHub for the latest release tag. If that tag is genuinely newer than the version you are running, an **Update** pill appears in the window header — click it to open the releases page. Nothing blocks the window, so the check never costs you the trip. The window itself (UIFramework.dll) updates on its own; `autoUpdate: false` in `uiframework.layout.json` switches that off.
+Opening the settings window checks GitHub for the latest release tag. If that tag is genuinely newer than the version you are running, an **Update** pill appears in the window header — click it to open the releases page. Nothing blocks the window, so the check never costs you the trip. The window itself (UIFramework.dll) updates on its own; `"autoUpdate": false` in `UIFramework\loader.json` under your Streamer.bot folder switches that off for every game.
 
 ***
 
