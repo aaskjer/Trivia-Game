@@ -53,7 +53,7 @@ On the **Access** page, under *Who may run a round*, switch off **Only moderator
 
 **Q: How do I start with Channel Points instead of a chat command?**
 
-1. On the **Access** page, under *How viewers play*, pick **Channel points**.
+1. On the **Access** page, under *How viewers play*, switch on **Channel points start a round**.
 2. Paste your **Reward ID (single round)** into the field.
 
 The current import already carries the **Twitch → Channel Point Reward Redemption** trigger on the `Trivia Game` action. On an older install that updated only the code, check **Actions → Trivia Game → Triggers** and add it — without that trigger a redemption never reaches the script at all.
@@ -101,7 +101,7 @@ Use the mod command `!ForceEndTrivia`. Game state lives in memory, so a restart 
 | `!TriviaScoreboardSearch` / `!TSS` | Everyone | Somebody else's stats |
 | `!TriviaScoreboard` / `!TTB` | Everyone | Show the top-N leaderboard |
 | `!TA` / `!TriviaAddict` `add\|remove <user>` | Mod / Broadcaster | Manage the addicted list |
-| `!Suggest q \| correct \| wrong \| wrong` | Reward, group or mod — see **Questions → Suggestions** | Add a question of the viewer's own |
+| `!Suggest q \| correct \| wrong \| wrong` | Reward, group or mod — see the **Suggestions** page | Add a question of the viewer's own |
 
 Command names depend on what you configured in Streamer.bot — the above are the defaults from the import string.
 
@@ -137,7 +137,7 @@ Which one you get is down to chance: the blitz **Chance (%)** on the **Game** pa
 The game detects your currency itself, in this order:
 1. **StreamUP Currency Core** — reads the `currency_ProductSettings` global.
 2. **tawmae Loyalty Points** — reads the `tawmae_Settings_LOYALTY POINTS` global.
-3. **Config fallback** — uses `VarName` / `PointsName` from `configs.json`.
+3. **Config fallback** — uses `pointsVariable` / `pointsName` from `configs.json`.
 
 Running a custom currency under a different variable name? Set **Points variable** and **Shown in chat as** on the **Game** page, under *Points*.
 
@@ -189,13 +189,13 @@ Viewers on the addicted list have their winnings cut by the **Addicted cut** on 
 
 **Q: Where do the trivia questions come from?**
 
-The **Question source** dropdown under **Questions → Sources** decides:
+The **Question source** dropdown on the **Sources** page decides:
 
 | Source | Questions | Language |
 |---|---|---|
 | **opentdb** | The [Open Trivia Database](https://opentdb.com) | English |
 | **Wikidata (SPARQL)** | Built from [Wikidata](https://www.wikidata.org) facts: capitals, currencies, continents, cities, World Heritage Sites, chemical symbols, moons, painters, authors, film directors, composers | English or German |
-| **OdeNet (deutsches WordNet)** | German vocabulary from [OdeNet](https://github.com/hdaSprachtechnologie/odenet): which word fits a definition, which word means the same | German |
+| **OdeNet (German WordNet)** | German vocabulary from [OdeNet](https://github.com/hdaSprachtechnologie/odenet): which word fits a definition, which word means the same | German |
 | **PokeAPI** | Pokémon from [PokeAPI](https://pokeapi.co): types, generations, Pokédex numbers and entries, evolutions | English or German |
 | **IGDB** | Video games from [IGDB](https://www.igdb.com): release years, studios, platforms, which came out first | English or German |
 | **Only my questions** | Your list on the Questions page | as you wrote it |
@@ -204,13 +204,13 @@ The **Question source** dropdown under **Questions → Sources** decides:
 
 **Question language** beside it picks English or German for Wikidata, PokeAPI and IGDB. The **Difficulty** and **Question type** on the Game page apply to every online source; your own questions have filters of their own, kept apart so narrowing one cannot silently empty the other.
 
-Viewers can contribute questions themselves with `!Suggest` once you allow it on the **Questions** page, under *Suggestions*.
+Viewers can contribute questions themselves with `!Suggest` once you allow it on the **Suggestions** page.
 
 ***
 
 **Q: How do I set up IGDB?**
 
-IGDB belongs to Twitch and needs an application registered in the [Twitch developer console](https://dev.twitch.tv/console/apps): any name, `http://localhost` as the redirect URL, category *Application Integration*, client type *Confidential*. Copy its **Client ID**, create a **Client Secret** with *New Secret*, and paste both under **Questions → Sources** once IGDB is picked. **Check** asks Twitch whether it accepts them. The [Setup Guide](Setup-Guide.md#igdb) has the steps with more detail.
+IGDB belongs to Twitch and needs an application registered in the [Twitch developer console](https://dev.twitch.tv/console/apps): any name, `http://localhost` as the redirect URL, category *Application Integration*, client type *Confidential*. Copy its **Client ID**, create a **Client Secret** with *New Secret*, and paste both on the **Sources** page once IGDB is picked. **Check** asks Twitch whether it accepts them. The [Setup Guide](Setup-Guide.md#igdb) has the steps with more detail.
 
 ***
 
@@ -242,13 +242,13 @@ Yes. The **Game** page, under *Rounds*, sets the **Difficulty**, **Question type
 
 **Q: What happens if the API returns no results for my settings?**
 
-Code 1 usually means the batch was simply bigger than the pool your category, difficulty and type leave behind — some opentdb categories hold only a handful of hard questions. The game notices and asks again for a single question, so the round still runs. Only a combination with no questions at all fails, and **Fall back to the other source** can then hand that round to your own list instead — with **Mine + opentdb** as the source. Questions are cached in advance as well, which keeps the API calls down.
+Code 1 usually means the batch was simply bigger than the pool your category, difficulty and type leave behind — some opentdb categories hold only a handful of hard questions. The game notices and asks again for a single question, so the round still runs. Only a combination with no questions at all fails, and **Fall back to the other source** can then hand that round to your own list instead — while **Mix in my questions** is on. Questions are cached in advance as well, which keeps the API calls down.
 
 ***
 
 **Q: How does question caching work?**
 
-For opentdb, each round start tries the local cache first. On a miss the game fetches a batch from the API, serves one question and keeps the rest. **Fetch ahead** under **Questions → Sources** sets how big that batch is. The other online sources keep what they fetch on disk instead — see *Does every round call the API?* above.
+For opentdb, each round start tries the local cache first. On a miss the game fetches a batch from the API, serves one question and keeps the rest. **Fetch ahead** on the **Sources** page sets how big that batch is. The other online sources keep what they fetch on disk instead — see *Does every round call the API?* above.
 
 ***
 
@@ -256,10 +256,10 @@ For opentdb, each round start tries the local cache first. On a miss the game fe
 
 **Q: What is the difference between Global Cooldown and User Cooldown?**
 
-- **Global Cooldown** — applies to *all* users at once after a round starts.
-- **User Cooldown** — applies only to the user who triggered the start command.
+- **Everyone** (the global cooldown) — applies to *all* users at once after a round starts.
+- **Per viewer** (the user cooldown) — applies only to the user who triggered the start command.
 
-Both live on the **Access** page under *Cooldown in seconds* and are applied to the Streamer.bot command directly. They gate the command that *starts* a run — the rounds of a back-to-back series run straight through them.
+Both live on the **Access** page under *Cooldowns* and are applied to the Streamer.bot command directly. They gate the command that *starts* a run — the rounds of a back-to-back series run straight through them.
 
 ***
 
@@ -291,7 +291,7 @@ Under **Game → Scoreboard**, switch off **Include the broadcaster** and **Incl
 
 **Q: How does the monthly auto-reset work?**
 
-Switch on **Reset every platform monthly** or the per-platform toggles under **Game → Monthly reset**. Switching one on only arms it: the first wipe lands at the next month boundary, never in the middle of the month you enabled it in. After that, the first leaderboard or stats command on or after the configured **Reset Day** zeroes every user stat for that platform, sends a chat announcement, and records the month in a persisted global so it runs only once. A **Reset Day** the month does not have — 31 in February, say — falls on that month's last day instead.
+Switch on **Reset every platform monthly** or the per-platform toggles under **Game → Monthly reset**. Switching one on only arms it: the first wipe lands at the next month boundary, never in the middle of the month you enabled it in, and switching it off and on again starts it fresh from the next month. After that, the reset happens at the first win, leaderboard or stats command on or after the **Day** you set, so nothing won from that day on is lost. It zeroes every user stat for that platform, sends a chat announcement, and records the month in a persisted global so it runs only once. A **Day** the month does not have — 31 in February, say — falls on that month's last day instead.
 
 ***
 
@@ -339,7 +339,7 @@ Yes, from v9.3.0, under **Rounds that start themselves** on the Automation page.
 
 Yes, from v9.3.0, under **Ad breaks** on the Automation page. Viewers cannot see the stream while ads run, but chat works as ever, so that is a good moment for a round.
 
-- **Start a round when ads start** plays as many rounds in a row as fit the ad break, within *Rounds per command*.
+- **Start a round when ads start** plays as many rounds in a row as fit the ad break, within **Max per command** on the Game page.
 - **Announce it before the ads** sends one line ahead of the break, 1 to 5 **Minutes before**; the line is on the Messages page.
 - **Bonus during ads** makes every Twitch round started during an ad break pay that much more.
 - **Rounds only during ads** lets viewers start a round only while ads run; moderators and the broadcaster always can.
@@ -356,7 +356,7 @@ Yes, from v9.3.0: add an **Execute C# Method** sub-action to any action, pick th
 
 **Q: Which custom triggers are there, and how do I try an action that listens to one?**
 
-From v9.3.0 the Help page of the settings lists them at its end, each with the arguments it carries, followed by the methods for your own actions. **Fire with sample values** under a trigger fires it once with made-up values (a winner called alice, 300 points), so your action runs without a round being played. The game itself does nothing when you press it.
+From v9.3.0 the **How to play** page of the settings lists them at its end, each with the arguments it carries, followed by the methods for your own actions. **Fire with sample values** under a trigger fires it once with made-up values (a winner called alice, 300 points), so your action runs without a round being played. The game itself does nothing when you press it.
 
 ***
 
@@ -386,7 +386,7 @@ No. The game keeps its last overlay message in a temporary global per platform (
 
 **Q: The overlay's leaderboard still shows last month after a reset day. Why?**
 
-The monthly reset runs on the first leaderboard or stats command on or after the reset day, not on the day itself. Until somebody uses one, the stats it would wipe are still there, and the overlay shows them.
+The monthly reset runs at the first win, leaderboard or stats command on or after the reset day, not at midnight. Until one of those comes, last month's stats are still there, and the overlay shows them.
 
 ***
 

@@ -17,14 +17,19 @@ The commands ship disabled. Enable all of them, or the parts that depend on them
 
 Go to `Actions`, select `[TG] - Settings`, right-click the `Test` trigger and choose `Test Trigger`. That opens the settings window. The first time, it fetches `UIFramework.dll` from GitHub (the window is [UIFramework for streamer.bot](https://github.com/aaskjer/UIFramework-Streamer.bot)'s, shared by every chat game of this family) and keeps it up to date from then on.
 
-Ten pages sit on the rail down the left side. The pencil at the bottom switches the theme and the language (English or German) and lets you rename, move or hide pages and fields.
+Eleven pages sit on the rail down the left side. The pencil at the bottom switches the theme and the language (English or German) and lets you rename, move or hide pages and fields.
 
 Twitch, YouTube and Kick all play, always — there is nothing to switch on. Restrict the Streamer.bot commands if you want the game off a platform.
 
 ## Game
 <p align="center"><img alt="grafik" src="https://github.com/aaskjer/Trivia-Game/blob/main/Assets/setup-guide/game.png?raw=true" alt="Game page"></p>
 
-The round and what it pays. Difficulty, question type, category, how long answers are accepted and when the countdown speaks up; then blitz rounds, how closely an answer has to match, rounds that start themselves on a timer, the points a win is worth, and the leaderboard with its monthly reset.
+The round and what it pays. Difficulty, question type, category, how long answers are accepted and when the countdown speaks up; then blitz rounds, how closely an answer has to match, the points a win is worth, and the leaderboard with its monthly reset.
+
+## Automation
+<p align="center"><img alt="grafik" src="https://github.com/aaskjer/Trivia-Game/blob/main/Assets/setup-guide/automation.png?raw=true" alt="Automation page"></p>
+
+Rounds that start without a command. Under *Rounds that start themselves*: the switch for Streamer.bot's timed action, how often it fires — a fixed time, or a random one between **Every** and **At most** — how many rounds each turn plays, and whether chat has to have been active, or have written a number of lines, first. A round only goes to a platform you are live on; where that cannot be told, recent chat decides. Under *Ad breaks*, Twitch only: a round when ads start, a line in chat before them, a bonus for rounds during ads, and rounds only during ads.
 
 ## Questions
 <p align="center"><img alt="grafik" src="https://github.com/aaskjer/Trivia-Game/blob/main/Assets/setup-guide/questions.png?raw=true" alt="Questions page"></p>
@@ -35,11 +40,6 @@ Your own questions, one row each: the switch that puts it in play, the question,
 <p align="center"><img alt="grafik" src="https://github.com/aaskjer/Trivia-Game/blob/main/Assets/setup-guide/sources.png?raw=true" alt="Sources page"></p>
 
 Where each round's question comes from — opentdb, Wikidata, OdeNet, PokeAPI, IGDB or only your own list — and in which language; `Check` beside them asks the chosen source whether it answers right now. **Mix in my questions** adds your own list to any source, with **Share of mine** setting how often. The IGDB keys only show while IGDB is picked; the Client Secret is shown as dots until you click the eye.
-
-## Suggestions
-<p align="center"><img alt="grafik" src="https://github.com/aaskjer/Trivia-Game/blob/main/Assets/setup-guide/suggestions.png?raw=true" alt="Suggestions page"></p>
-
-Whether viewers may suggest questions with `!Suggest`, who may, and how a suggestion arrives.
 
 Wikidata, OdeNet and PokeAPI need nothing from you. OdeNet is German only and downloads its word list (about 4 MB) the first time a round needs it. IGDB needs a key of your own:
 
@@ -52,7 +52,12 @@ IGDB belongs to Twitch and only answers an application registered there.
 3. Click `Manage` on the new application. Copy the **Client ID**, then click `New Secret` and copy the **Client Secret**.
 4. In the settings window, pick **IGDB** on the **Sources** page, paste both into **Client ID** and **Client Secret**, and click `Check`. *Twitch accepted the Client ID and Client Secret* means you are done — save.
 
-The secret is stored in `configs.json` on your PC and only ever sent to Twitch, to fetch IGDB's access token. The field shows it as typed, so keep the window off stream while you paste it.
+The secret is stored in `configs.json` on your PC and only ever sent to Twitch, to fetch IGDB's access token. The field shows it as dots unless you click the eye, so keep the eye closed while you are live.
+
+## Suggestions
+<p align="center"><img alt="grafik" src="https://github.com/aaskjer/Trivia-Game/blob/main/Assets/setup-guide/suggestions.png?raw=true" alt="Suggestions page"></p>
+
+Whether viewers may suggest questions with `!Suggest`, who may, and how a suggestion arrives.
 
 ## Access
 <p align="center"><img alt="grafik" src="https://github.com/aaskjer/Trivia-Game/blob/main/Assets/setup-guide/access.png?raw=true" alt="Access page"></p>
@@ -98,7 +103,3 @@ Anything else goes into the source's `Custom CSS` field, which wins over the col
 <p align="center"><img alt="grafik" src="https://github.com/aaskjer/Trivia-Game/blob/main/Assets/setup-guide/log.png?raw=true" alt="Log page"></p>
 
 Every round, answer and payout, searchable by user, platform or outcome. One file per day, and nothing is deleted automatically.
-
-## Checks
-
-`tools\check-all.ps1` runs everything that can be checked without Streamer.bot; `tools\run-window-tests.ps1` opens the real settings window through UIFramework's generic stub over an old-style `configs.json`.
