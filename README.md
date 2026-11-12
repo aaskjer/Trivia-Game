@@ -35,7 +35,7 @@ on a shorter timer and for a bigger payout. Twitch, YouTube and Kick each play t
 ## ✨ Highlights
 
 - 📚 **Six question sources.** The Open Trivia Database, Wikidata, German vocabulary from OdeNet, Pokémon from
-  PokeAPI, video games from IGDB, or your own list, alone or mixed with opentdb. Viewers can submit
+  PokeAPI, video games from IGDB, or your own list, alone or mixed into any of the others. Viewers can submit
   questions with `!Suggest`.
 - 🌟 **Difficulty that means something.** Wikidata, PokeAPI and IGDB rank what they know by how well known it
   is, so *easy* asks about Japan and Pikachu and *hard* about Nauru and Garbodor.

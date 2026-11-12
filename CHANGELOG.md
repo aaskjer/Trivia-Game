@@ -20,6 +20,25 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 - **A skipped version is skipped in every game.** It is kept once, in `UIFramework\loader.json` beside
   Streamer.bot, and so is `"autoUpdate": false`. What a game's `uiframework.layout.json` holds is still read.
 - The settings action is 0.3.1, the host block UIFramework 1.9.0's. Nothing in your settings changes.
+- **The monthly reset never takes wins from the new month.** It used to run only at the first scoreboard command,
+  and wiped every win since the reset day along with last month's. Now the game applies it too, just before it
+  writes a win, so the reset lands at the first win or scoreboard command on or after the day. Switching a reset
+  off and on again arms it afresh instead of wiping the board mid-month.
+- **Tied viewers share their place** on the leaderboard (1, 2, 2, 4) and their medal, instead of being ranked in
+  no particular order.
+- **The Relaxed difficulty lets two characters differ, not three.** Three on words of three letters let any
+  three-letter word through ('lol' counted as 'Red'), which the window's own check warned about.
+- **First reminder at 0 sends no reminders.** It used to fall back to half the round.
+- **A topic of a generated source plays only that source.** With your questions mixed in, `!trivia pokemon` was
+  sometimes answered with one of yours from any category. The categories of your own questions, which chat is
+  offered beside the topics, can now be picked too.
+- **Saving the settings restarts the automatic-round timer only when its schedule changed.** A save of a message
+  pushed the next automatic round a whole interval further out.
+- **Set it up in OBS leaves a source of another kind alone.** An image or text source with the overlay's name
+  used to be "pointed at the overlay", which did nothing; the window now says so. A browser source of that name
+  is checked after it is repointed.
+- **The Addicted usage message names `!TA`.** It said `!addicted`, a command the import does not have. A message
+  you saved yourself keeps its text.
 
 ### Fixed
 
@@ -27,6 +46,60 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 - **No answer from the game shows as no answer.** A Try button said "done" and a table showed as empty when the
   game action did not answer.
 - **A late answer is not taken for the next one.** Every request to the game has a variable of its own.
+- **`!trivia` starts rounds on YouTube and Kick again while channel points start them on Twitch.** With
+  *Channel points start a round* on, every start without a reward was ignored, whatever the platform, although
+  redemptions only exist on Twitch. The round count and the category typed after it work there too.
+- **A skip, a force end or a winning blitz answer while the question goes out** no longer ends in "Failed to fetch
+  a trivia question" and a cancelled series for a round that was running.
+- **`!trivia custom` plays your questions that have no category.** They were offered to chat as *Custom* but never
+  matched it.
+- **Chat noise is no answer.** A lone "?", ":)" or an emoji counted as any option made of symbols and locked the
+  viewer out of the round. Text that fits two options alike ('C#.' for C, C# and C++) counts as neither.
+- **A number in an answer is right or wrong, never close.** 'PlayStation 3' counted as 'PlayStation 4' when the 3
+  was not offered, and 'Generation V' as 'Generation IV'.
+- **Generated questions no longer give their answer away.** PokeAPI asked which Pokémon evolves into Pidgeot
+  (Pidgeotto), what type Steelix is (Steel), which is the Ninja Pokémon (Ninjask); IGDB which studio made Sonic
+  Adventure (Sonic Team) and on which platform Mario Kart Wii came out (Wii). Nor does an evolution question offer
+  the stage before last as a wrong answer.
+- **IGDB's "which came out first" question is rated by the difficulty it was drawn for**, not always medium, so it
+  pays like the others. An answer from IGDB that is no game list keeps the stored list instead of costing the round
+  its question.
+- **A source that does not answer is left alone for a while.** After a failure, PokeAPI is not asked for ten
+  minutes, IGDB for half an hour and the OdeNet download for a quarter of an hour; every round used to wait out the
+  full timeout again. A stalled OdeNet download is now cut off at its limit instead of holding up every generated
+  source.
+- **PokeAPI keeps what it learnt.** Types fetched for a stored Pokémon and a refreshed species count are saved too.
+- **One payout that fails no longer stops the round.** The other winners are paid, and chat, the overlay and the
+  triggers get the result.
+- **A very large payout no longer wipes the winner's points.** It is capped instead of overflowing to a negative
+  number, which set the balance to 0.
+- **Text is decoded once.** A question about `&amp;nbsp;` showed as a blank; your own questions copied out of
+  opentdb, with their `&quot;` and `&amp;`, show as text on the overlay too.
+- **Two YouTube viewers with the same name answer separately.** Answers are told apart by the viewer's id, not the
+  display name. The Addicted list takes a viewer's id as well as their name.
+- **A long message is never cut inside an emoji.**
+- **A blocked viewer who redeems a trivia reward gets the points back**, as for any redemption that starts nothing.
+- **`!trivia ３` is no request for a few billion rounds**, and a 0 typed into the multi-round reward plays one
+  round, not the most.
+- **A round with an answer time of 0 ends by itself.** It stayed open until someone wrote in chat.
+- **An automatic turn that finds a round under way keeps the chat lines counted** for the next one, and the
+  announcement of a random-time round says when the next one really comes.
+- **Two `!TA` at once both land, and one that cannot be saved changes nothing.** The list is changed in
+  configs.json under its lock. A configs.json that does not parse is no longer replaced by a file holding the
+  Addicted list alone.
+- **Saving configs.json is tried again** when a chat line happens to be reading it at that moment.
+- **Rounds of an ad break are planned with the time the overlay's result takes**, so they no longer run on well past
+  the ads.
+- **An own question whose wrong answers only repeat the right one** is not played as a one-option round.
+- **The opentdb check says when opentdb only asked to slow down**, instead of reporting it down.
+- **The log's file names and times are the same on every PC**, whatever calendar Windows uses.
+- **Scoreboard:** a bot or broadcaster that connects after the first command is left off the board; the command
+  that triggers the monthly reset shows the new board, not last month's; the blocked list and `!TSS` find viewers
+  by login as well as display name; the reset month is the same under every calendar.
+- **Overlay:** another platform's result no longer replaces a round that is still running; after a reload a running
+  round wins over a finished one; after a lost connection the overlay picks up what happened meanwhile; a wrong
+  password no longer makes it sign in again every second.
+- **Help texts and guides** name the pages, labels and commands as they are now.
 
 ## [9.3.1] - 2026-11-12
 
