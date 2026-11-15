@@ -17,7 +17,7 @@ The commands ship disabled. Enable all of them, or the parts that depend on them
 
 Go to `Actions`, select `[TG] - Settings`, right-click the `Test` trigger and choose `Test Trigger`. That opens the settings window. The first time, it fetches `UIFramework.dll` from GitHub (the window is [UIFramework for streamer.bot](https://github.com/aaskjer/UIFramework-Streamer.bot)'s, shared by every chat game of this family) and keeps it up to date from then on.
 
-Eleven pages sit on the rail down the left side. The pencil at the bottom switches the theme and the language (English or German) and lets you rename, move or hide pages and fields.
+Eleven pages sit on the rail down the left side. The pencil at the bottom switches the theme and the language (English or German; Spanish, French and Brazilian Portuguese in part) and lets you rename, move or hide pages and fields.
 
 Twitch, YouTube and Kick all play, always — there is nothing to switch on. Restrict the Streamer.bot commands if you want the game off a platform.
 

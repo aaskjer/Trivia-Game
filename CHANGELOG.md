@@ -3,6 +3,39 @@
 Earlier releases are in the [release notes](https://github.com/aaskjer/Trivia-Game/releases).
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## [9.3.3] - 2026-11-15
+
+### Added
+
+- **The window in French and Brazilian Portuguese.** The pencil now offers English, German, Spanish, French and
+  Brazilian Portuguese. The window's own texts and the settings every chat game shares come in all five; Trivia's
+  own settings, help and messages are English, or German in the German window.
+- **The group fields suggest your Streamer.bot groups.** *Blocked groups* and *Addicted groups* on the Access page
+  and *Allowed groups* on the Suggestions page list the groups you have not added yet, narrowed by what you type.
+  Up and Down pick one, Enter adds it; a name typed in full still works.
+
+### Changed
+
+- The settings action is 0.3.2, the host block UIFramework 2.0.0's, which the settings fetch by themselves. Nothing
+  in your settings changes. The rest of what 2.0.0 brings to the window is in
+  [its changelog](https://github.com/aaskjer/UIFramework-Streamer.bot/blob/main/CHANGELOG.md).
+
+### Fixed
+
+- **Every save reaches the game.** When the game was still busy with another request from the window, it never
+  heard of the save, and the overlay and the automatic rounds went on with the old settings. The save is now passed
+  on up to three times, and if it still does not arrive, a note beside the window says so.
+- **What the Difficulty slider fills in during a save is kept.** Numbers that came in while the settings were being
+  checked were shown as saved but never written. They now count as unsaved, and *Save & Exit* asks before it closes.
+- **Fire with sample values on the How to play page no longer freezes the window** while the game is busy, and
+  says why when the game did not answer.
+- **Log page:** the folder button opens the log folder beside Streamer.bot, also after an export to another folder,
+  and lines written in the same second show newest first.
+- **Another game's newer UIFramework no longer locks this window.** The update notice and the live check loaded
+  the newest UIFramework.dll installed, also one a later game had fetched for a newer settings action, and after
+  every start of Streamer.bot the window then failed to open. They now load the newest one this game fits. The
+  update notice also leaves out a version you skipped, or any while the update check is off.
+
 ## [9.3.2] - 2026-11-12
 
 ### Added
